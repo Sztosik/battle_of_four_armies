@@ -3,3 +3,4 @@ BASE_UNIT_STRENGTH = 10
 BASE_UNIT_MOVMENT_POINT = 1
 BOARD_X = 20
 BOARD_Y = 20
+FRACTION_NAMES = ["Led", "Green", "Blue", "Transparent"]
