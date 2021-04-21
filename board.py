@@ -3,7 +3,7 @@ import random
 
 class Board:
     def __init__(self, board_x, board_y):
-        self.__board_fields = []
+        self.board_fields = []
         self.__board_x = board_x
         self.__board_y = board_y
         self.generate_board()
@@ -15,7 +15,7 @@ class Board:
             for x in range(self.__board_x): 
                new_field = Field(x, y)
                new_row.append(new_field)
-            self.__board_fields.append(new_row)
+            self.board_fields.append(new_row)
             new_row = []
 
     def is_it_free(self, x, y, fraction):
@@ -48,14 +48,21 @@ class Field:
     def count_units(self):
         return len(self.__units)
 
-    def add_unit(self, unit):
-        self.__units.append(unit)
+    def add_unit(self, unit_id):
+        self.__units.append(unit_id)
+
+    # sprawdzić czy ta funkcja usuwa jednostkę o podanym id z listy
+    def remove_unit(self, unit_id): 
+        self.__units.remove(unit_id)
     
     def get_fraction(self):
         return self.__fraction
 
     def get_defense_modifier(self):
         return self.__defense_modifier
+
+    def get_units(self):
+        return self.__units
 
     def change_fraction(self, fraction):
         self.__fraction = fraction
