@@ -9,7 +9,7 @@ class Army:
         self.__start_point_x = start_point_x
         self.__start_point_y = start_point_y
 
-        self.generate_base_unit_list()
+        self.generate_unit_list()
 
     def generate_unit_list(self):
         for id in range(self.__init_number_of_base_units):

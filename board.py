@@ -13,7 +13,7 @@ class Board:
         new_row = []
         for y in range(self.__board_y):
             for x in range(self.__board_x): 
-               new_field = Field(x, y)
+               new_field = Field()
                new_row.append(new_field)
             self.board_fields.append(new_row)
             new_row = []
@@ -36,12 +36,9 @@ class Board:
             return 2
 
     
-
 class Field:
-    def __init__(self, pos_x, pos_y):
+    def __init__(self):
         self.__defense_modifier = random.randint(-10, 10)
-        self.__pos_x = pos_x
-        self.__pos_y = pos_y
         self.__units = []
         self.__fraction = "none"
         
