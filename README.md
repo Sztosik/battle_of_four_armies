@@ -22,3 +22,5 @@ https://echeung.me/crcmaker/?share=W3sibmFtZSI6IkFybXkiLCJzdXBlcmNsYXNzZXMiOiIiL
 
 ### DIAGRAMY
 https://app.creately.com/diagram/bERHddihX1O/edit
+
+https://lucid.app/lucidchart/1d9c490b-71c1-4bff-ad1c-f6966a921eca/edit?beaconFlowId=A192B22666345200&page=0_0#
