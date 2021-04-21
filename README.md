@@ -18,3 +18,6 @@ https://drive.google.com/drive/folders/1oXZvaAFNl-0PXs05L2YzsMoFZCARuWrg?usp=sha
 
 ### CRC
 https://echeung.me/crcmaker/?share=W3sibmFtZSI6IkFybXkiLCJzdXBlcmNsYXNzZXMiOiIiLCJzdWJjbGFzc2VzIjoiIiwidHlwZSI6MSwicmVzcG9uc2liaWxpdGllcyI6WyJQcnplY2hvd3VqZSBpbmZvcm1hY2plIG8gYXJtaWkiLCJMaWN6eSBzdGF0eXN0eWtpIGFybWlpIl0sImNvbGxhYm9yYXRvcnMiOlsiU2ltdWxhdGlvbiwgVW5pdCJdfV0=
+
+### copy crc.json to this website
+https://echeung.me/crcmaker/
