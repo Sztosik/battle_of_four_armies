@@ -10,9 +10,11 @@
 7. zrobić komentarze w kodzie co by się później nie pogubić - in progress
 
 
-Jędrzej - Diagram przypadków użycia, karty CRC
+Jędrzej - Diagram(y) aktywności
 
-Mikołaj - Diagram klas i obiektów
+Mikołaj - Diagram(y) sekwencji
+
+Diagram(y) maszyny stanów
 
 https://drive.google.com/drive/folders/1oXZvaAFNl-0PXs05L2YzsMoFZCARuWrg?usp=sharing
 

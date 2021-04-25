@@ -1,78 +1,140 @@
 [
-    {
-      "name": "Army",
-      "superclasses": "",
-      "subclasses": "",
-      "type": 1,
-      "responsibilities": [
-        "Przechowuje informacje o armii",
-        "Liczy statystyki armii"
-      ],
-      "collaborators": [
-        "Simulation, Unit"
-      ]
-    },
-    {
-      "name": "Board",
-      "superclasses": "",
-      "subclasses": "",
-      "type": 1,
-      "responsibilities": [
-        "Przechowuje plansze",
-        "Sprawdza czy pole jest wolne"
-      ],
-      "collaborators": [
-        "Simulation, Field"
-      ]
-    },
-    {
-      "name": "Field",
-      "superclasses": "",
-      "subclasses": "",
-      "type": 1,
-      "responsibilities": [
-        "Przechowuje informacje o polu",
-        "Przechowuje informacje o jednostkach znajdujących się na polu"
-      ],
-      "collaborators": [
-        "Board"
-      ]
-    },
-    {
-      "name": "Unit",
-      "superclasses": "",
-      "subclasses": "Base_unit, Unit_A, Unit_B, Unit_C, Unit_D",
-      "type": 2,
-      "responsibilities": [
-        "definiuje podstawowe umiejętności i ststystyki jednostek"
-      ],
-      "collaborators": [
-        ""
-      ]
-    },
-    {
-      "name": "Simulation",
-      "superclasses": "",
-      "subclasses": "",
-      "type": 1,
-      "responsibilities": [
-        "Pozwala zdefiniować ustawenia początkowe",
-        "Uruchamia symulacje"
-      ],
-      "collaborators": [
-        "Army, Board"
-      ]
-    },
-    {
-      "name": "Statistics",
-      "superclasses": "",
-      "subclasses": "",
-      "type": 1,
-      "responsibilities": [
-        "Zapisywanie statystyk z każdej iteracji"
-      ],
-      "collaborators": [
-        "Simulation"
-      ]
-    }
-  ]
+  {
+    "name": "Simulation",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Defines the initial settings",
+      "Runs simulation"
+    ],
+    "collaborators": [
+      "Army, Board"
+    ]
+  },
+  {
+    "name": "Statistics",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Saving statistics after each iteration"
+    ],
+    "collaborators": [
+      "Simulation"
+    ]
+  },
+  {
+    "name": "Army",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Stores information about the army",
+      "Counts the number of active units"
+    ],
+    "collaborators": [
+      "Simulation, Unit"
+    ]
+  },
+  {
+    "name": "Board",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Stores the board",
+      "Checks if the field is free",
+      "Counts the fields belonging to each army"
+    ],
+    "collaborators": [
+      "Simulation, Field"
+    ]
+  },
+  {
+    "name": "Field",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Stores field modifiers",
+      "Stores information about units on the field ",
+      "Stores information about belonging to the army"
+    ],
+    "collaborators": [
+      "Board"
+    ]
+  },
+  {
+    "name": "Unit",
+    "superclasses": "",
+    "subclasses": "Base_unit, Unit_A, Unit_B, Unit_C, Unit_D",
+    "type": 2,
+    "responsibilities": [
+      "Defines the basic skills and characteristics of the units"
+    ],
+    "collaborators": [
+      ""
+    ]
+  },
+  {
+    "name": "Base_Unit",
+    "superclasses": "Unit",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Stores the characteristics and skills of the base unit "
+    ],
+    "collaborators": [
+      "Army"
+    ]
+  },
+  {
+    "name": "Special_Unit_A",
+    "superclasses": "Unit",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Stores the characteristics and skills of special unit A "
+    ],
+    "collaborators": [
+      "Army"
+    ]
+  },
+  {
+    "name": "Special_Unit_B",
+    "superclasses": "Unit",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Stores the characteristics and skills of special unit B"
+    ],
+    "collaborators": [
+      "Army"
+    ]
+  },
+  {
+    "name": "Special_Unit_C",
+    "superclasses": "Unit",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Stores the characteristics and skills of special unit C"
+    ],
+    "collaborators": [
+      "Army"
+    ]
+  },
+  {
+    "name": "Special_Unit_D",
+    "superclasses": "Unit",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Stores the characteristics and skills of special unit D"
+    ],
+    "collaborators": [
+      "Army"
+    ]
+  }
+]
