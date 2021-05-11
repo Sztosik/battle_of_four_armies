@@ -23,7 +23,7 @@ class Board:
         if (x < 0 or x >= self.__board_x) or (y < 0 or y >= self.__board_y):
             return 0
 
-        field = self.__board_fields[y][x]
+        field = self.board_fields[y][x]
 
         # przypadek kiedy żadna jednostka nie stała na tym polu albo jest sojusznicze
         if field.get_fraction() == "none" or field.get_fraction() == fraction: 
@@ -45,12 +45,30 @@ class Field:
     def count_units(self):
         return len(self.__units)
 
-    def add_unit(self, unit_id):
-        self.__units.append(unit_id)
+    def add_unit(self, unit):
+        print("jednostki na przejmowanym polu", len(self.__units))
+        for jednostka in self.__units:
+            print(" - ",id(jednostka))
+
+        self.__units.append(unit)
+
+        print("jednostki na przejmowanym polu po przejęciu", len(self.__units))
+        for jednostka in self.__units:
+            print(" - ",id(jednostka))
 
     # sprawdzić czy ta funkcja usuwa jednostkę o podanym id z listy
-    def remove_unit(self, unit_id): 
-        self.__units.remove(unit_id)
+    def remove_unit(self, unit): 
+        print("zwalniam pole, moje id: ",id(unit))
+        print("jednostki na zwalnianym polu", len(self.__units))
+        for jednostka in self.__units:
+            print(" - ",id(jednostka))
+        
+        if len(self.__units) != 0:
+            self.__units.remove(unit)
+
+        print("jednostki na zwalnianym polu po zwolniuniu", len(self.__units))
+        for jednostka in self.__units:
+            print(" - ",id(jednostka))
     
     def get_fraction(self):
         return self.__fraction

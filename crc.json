@@ -68,7 +68,7 @@
   {
     "name": "Unit",
     "superclasses": "",
-    "subclasses": "Base_unit, Unit_A, Unit_B, Unit_C, Unit_D",
+    "subclasses": "Base_Unit, Unit_A, Unit_B, Unit_C, Unit_D",
     "type": 2,
     "responsibilities": [
       "Defines the basic skills and characteristics of the units"

@@ -2,28 +2,34 @@ import random
 import config
 
 class Unit:
-    def __init__(self, id, fraction, pos_x, pos_y):
+    def __init__(self, id, fraction, pos_x, pos_y, board):
         self.__id = id
         self.__fraction = fraction
-        self.__health_points = config.BASE_UNIT_HP
-        self.__strength = config.BASE_UNIT_STRENGTH
-        self.__movement_points = config.BASE_UNIT_MOVEMENT_POINT
+        self.__health_points = config.Base_Unit_HP
+        self.__strength = config.Base_Unit_STRENGTH
+        self.__movement_points = config.Base_Unit_MOVEMENT_POINT
         self.__pos_x = pos_x
         self.__pos_y = pos_y
         self.__is_alive = True
 
+        self.capture_the_field(board, pos_x, pos_y)
+
+
     def move(self, board):
+        print("\nTura jednostki: ", id(self))
+        print("frakcja jednostki: ", self.__fraction)
         if self.__is_alive == True:
             movement = self.__movement_points
             while movement > 0:
-                rand_x = random.randomint(-1, 1)
-                rand_y = random.randomint(-1, 1)
+                rand_x = random.randint(-1, 1)
+                rand_y = random.randint(-1, 1)
                 pos_x = self.__pos_x + rand_x
                 pos_y = self.__pos_y + rand_y
 
                 move = board.is_it_free(pos_x, pos_y, self.__fraction)
                 if move == 1:
-                    board.board_fields[pos_y][pos_x].remove_unit(self.__id)
+                    print("pole które chce zwolnić: ", self.__pos_x, self.__pos_y)
+                    board.board_fields[self.__pos_y][self.__pos_x].remove_unit(self) # przekazuje wskaźnik na obecnie aktywny obiekt jednostki
                     self.__pos_x = pos_x
                     self.__pos_y = pos_y
                     self.capture_the_field(board, pos_x, pos_y)
@@ -34,16 +40,18 @@ class Unit:
 
 
     def capture_the_field(self, board, x, y):
+            print("Przejmuje pole ",x, y)
             board.board_fields[y][x].change_fraction(self.__fraction)
-            board.board_fields[y][x].add_unit(self.__id)
+            board.board_fields[y][x].add_unit(self) # przekazuje wskaźnik na obecnie aktywny obiekt jednostki
 
     def fight(self, board, x, y):
-        enemy_id = board.board_fields[y][x].get_units()[0]
-        enemy_fraction = board.board_fields[y][x].get_fraction()
+        # enemy_id = board.board_fields[y][x].get_units()[0]
+        # enemy_fraction = board.board_fields[y][x].get_fraction()
+        print("Walka")
 
 class Base_Unit(Unit):
-    def __init__(self, id, fraction, pos_x, pos_y):
-        super().__init__(id, fraction, pos_x, pos_y)
+    def __init__(self, id, fraction, pos_x, pos_y, board):
+        super().__init__(id, fraction, pos_x, pos_y, board)
 
 
 
