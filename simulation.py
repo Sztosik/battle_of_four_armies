@@ -2,9 +2,9 @@ import config
 from army import Army
 from board import Board
 
-# zrobić wybór czy chce się wpisywać parametry początkowe czy wystartować z domyślnych
-class Simulation: 
 
+# zrobić wybór czy chce się wpisywać parametry początkowe czy wystartować z domyślnych
+class Simulation:
     def __init__(self):
         self.__armies = []
         self.__fraction_names = config.FRACTION_NAMES
@@ -21,10 +21,10 @@ class Simulation:
         new_army = Army("Transparent", 3, 3, 99, 99, self.board)
         self.__armies.append(new_army)
 
-
     def start(self):
-        for i in range(0, 5): # oczywiście trzeba zmienić ten warunek, dodać info o zajętych polach i jednostkach do klasy armia
-            print("\n\niteration number = %s" %i)
+        for i in range(0, 5):
+            # oczywiście trzeba zmienić ten warunek, dodać info o zajętych polach i jednostkach do klasy armia
+            print("\n\niteration number = %s" % i)
             for army in self.__armies:
                 # print("\nARMY %s TURN" %army.fraction)
                 army.start(self.board)
