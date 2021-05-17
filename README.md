@@ -1,5 +1,34 @@
 # PO-Project
 
+## Setup
+
+```
+$ git clone https://github.com/Sztosik/PO-Project.git
+$ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+$ cd PO-Project
+$ poetry init
+$ python simulation.py
+```
+
+## Scripts
+__run formatting script__
+```
+$ cd scripts
+$ ./formatting_check.sh
+```
+
+__run pylint_check.sh__
+```
+$ cd scripts
+$ ./pylint_check.sh 
+```
+
+__run mypy_check.sh__
+```
+$ cd scripts
+$ ./mypy_check.sh
+```
+
 ## TO DO
 1. rozdzielić klasy do różnych plików - done
 2. zrobić system zbierania i zapisu danych
