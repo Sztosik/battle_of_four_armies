@@ -3,7 +3,6 @@ from army import Army
 from board import Board
 
 
-# zrobić wybór czy chce się wpisywać parametry początkowe czy wystartować z domyślnych
 class Simulation:
     def __init__(self):
         self.__armies = []
@@ -22,6 +21,9 @@ class Simulation:
         self.__armies.append(new_army)
 
     def start(self):
+        """
+        Rozpoczyna symulacje.
+        """
         for i in range(0, 5):
             # oczywiście trzeba zmienić ten warunek, dodać info o zajętych polach i jednostkach do klasy armia
             print("\n\niteration number = %s" % i)
@@ -34,5 +36,6 @@ class Simulation:
         pass
 
 
-Symulacja = Simulation()
-Symulacja.start()
+if __name__ == "__main__":
+    Symulacja = Simulation()
+    Symulacja.start()

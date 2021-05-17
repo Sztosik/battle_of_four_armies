@@ -1,11 +1,13 @@
 import random
 
-from board import Board
 import config
+from board import Board
 
 
 class Unit:
-    def __init__(self, id, fraction: str, pos_x: int, pos_y: int, board: Board) -> Board:
+    def __init__(
+        self, id, fraction: str, pos_x: int, pos_y: int, board: Board
+    ) -> Board:
         self.__id = id
         self.__fraction = fraction
         self.__health_points = config.Base_Unit_HP

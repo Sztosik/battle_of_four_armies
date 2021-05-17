@@ -1,7 +1,5 @@
 import random
 
-import config
-
 
 class Board:
     def __init__(self, board_x, board_y):
@@ -56,6 +54,9 @@ class Field:
         return len(self.__units)
 
     def add_unit(self, unit):
+        """
+        Dodaje jednostkę do listy jednostek na polu
+        """
         print("jednostki na przejmowanym polu", len(self.__units))
         for jednostka in self.__units:
             print(" - ", id(jednostka))
@@ -66,8 +67,10 @@ class Field:
         for jednostka in self.__units:
             print(" - ", id(jednostka))
 
-    # sprawdzić czy ta funkcja usuwa jednostkę o podanym id z listy
     def remove_unit(self, unit):
+        """
+        Usuwa jednostkę z listy jednostek na polu
+        """
         print("zwalniam pole, moje id: ", id(unit))
         print("jednostki na zwalnianym polu", len(self.__units))
         for jednostka in self.__units:
@@ -80,14 +83,26 @@ class Field:
         for jednostka in self.__units:
             print(" - ", id(jednostka))
 
-    def get_fraction(self):
+    def get_fraction(self) -> str:
+        """
+        Zwraca przynależność pola do frakcji.
+        """
         return self.__fraction
 
-    def get_defense_modifier(self):
+    def get_defense_modifier(self) -> int:
+        """
+        Zwraca modyfikator obronności pola.
+        """
         return self.__defense_modifier
 
-    def get_units(self):
+    def get_units(self) -> list:
+        """
+        Zwraca listę jednostek znajdujących się na polu
+        """
         return self.__units
 
-    def change_fraction(self, fraction):
+    def change_fraction(self, fraction: str) -> None:
+        """
+        Zmienia przynależność pola do frakcji
+        """
         self.__fraction = fraction

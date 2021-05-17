@@ -1,5 +1,5 @@
-from unit import Base_Unit, Unit
 from board import Board
+from unit import Base_Unit, Unit
 
 
 class Army:
