@@ -31,6 +31,7 @@ class Simulation:
                 # print("\nARMY %s TURN" %army.fraction)
                 army.start(self.board)
             # self.save_stats()
+        self.board.captured_fields()
 
     def save_stats():
         pass

@@ -1,5 +1,7 @@
 import random
 
+import config
+
 
 class Board:
     def __init__(self, board_x, board_y):
@@ -39,6 +41,30 @@ class Board:
         # na polu znajduje się co najmniej jedna jednostka przeciwna
         else:
             return 2
+
+    def get_fields(self):
+        """
+        Generator pól należących do planszy
+        """
+        for y in range(self.__board_y):
+            for x in range(self.__board_x):
+                yield self.board_fields[y][x]
+
+    def captured_fields(self):
+        """
+        Zwraca słownik z liczbą przejętych pól przez armie
+        """
+        fractions = config.FRACTION_NAMES
+        fractions_dict = dict()
+
+        for name in fractions:
+            fractions_dict[name] = 0
+
+        for field in self.get_fields():
+            for name in fractions:
+                if name == field.get_fraction():
+                    fractions_dict[name] += 1
+        return fractions_dict
 
 
 class Field:

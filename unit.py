@@ -68,7 +68,9 @@ class Unit:
         """
         defense_modifier = board.board_fields[y][x].get_defense_modifier()
         enemy = board.board_fields[y][x].get_units()[0]
-        enemy.get_damage(self.get_strength() + defense_modifier) # zwiększa lub zmniejsza silę bazową o 10
+        enemy.get_damage(
+            self.get_strength() + defense_modifier
+        )  # zwiększa lub zmniejsza silę bazową o 10
         if enemy.get_hp() <= 0:
             enemy.just_die()
         print("Walka")
@@ -84,18 +86,19 @@ class Unit:
         Zwraca punkty siły obiektu
         """
         return self.__strength
-    
+
     def just_die(self) -> None:
         """
         Zmienia stan jednostki na martwy
         """
         self.__is_alive = False
-    
+
     def get_hp(self) -> int:
         """
         Zwraca punkty życia jednostki
         """
         return self.__health_points
+
 
 class Base_Unit(Unit):
     def __init__(self, id, fraction, pos_x, pos_y, board):
@@ -108,7 +111,7 @@ class Special_Unit_A(Unit):
         super().__init__(id, fraction, pos_x, pos_y)
         self.__health_points = config.SPECIAL_UNIT_HP
         self.__strength = config.SPECIAL_UNIT_STRENGTH
-    
+
     def fight(self, board: Board, x: int, y: int) -> None:
         """
         Wywołuje metodę get_damage na każdym obiekcie
