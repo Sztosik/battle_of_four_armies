@@ -1,61 +1,54 @@
 import pygame
 import consts
-pygame.init()
-
+import json
+from board import Board
 screen = pygame.display.set_mode((consts.WIDTH, consts.WIDTH))
-pygame.display.set_caption("Visualization")
-screen.fill(consts.WHITE)
-CLOCK = pygame.time.Clock()
-run = True
 
 
-class Field:
-    def __init__(self, pos_x, pos_y):
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-        self.color = consts.WHITE
+def main_visualization(path) -> None:
+    pygame.init()
+    pygame.display.set_caption("Visualization")
+    screen.fill(consts.WHITE)
 
-    def change_fraction(self, fraction_color):
-        self.color = fraction_color
-
-
-def draw_grid(color):
-    block_size = consts.BLOCK_SIZE
-    for x in range(int(consts.WIDTH/block_size)):
-        if x % 4 == 0:
-            for y in range(int(consts.WIDTH/block_size)):
-                rect = pygame.Rect(x*block_size, y*block_size,
-                                   block_size, block_size)
-                if y % 4 == 0:
-                    pygame.draw.rect(screen, color, rect, 0)
-                else:
-                    pygame.draw.rect(screen, consts.GREEN_ACCENT, rect, 0)
-        else:
-            for y in range(int(consts.WIDTH/block_size)):
-                rect = pygame.Rect(x*block_size, y*block_size,
-                                   block_size, block_size)
-                if y % 4 == 0:
-                    pygame.draw.rect(screen, consts.YELLOW_ACCENT, rect, 0)
-                else:
-                    pygame.draw.rect(screen, consts.GREEN_ACCENT, rect, 0)
-
-
-def main():
+    with open(path) as f:
+        data = json.load(f)
     itr = 0
-    while run:
-        if itr % 2 == 0:
-            draw_grid(consts.BLUE_ACCENT)
-        elif itr % 3 == 0:
-            draw_grid(consts.YELLOW_FIGHT)
-        else:
-            draw_grid(consts.RED)
+    while itr < len(data):
+        draw_grid(data[itr])
         itr += 1
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+
         pygame.display.update()
-        pygame.time.wait(500)
+        pygame.time.delay(consts.SINGLE_FRAME_DURATION)
 
 
-main()
+def draw_grid(itr_fields_data) -> None:
+
+    for x in range(len(itr_fields_data)):
+        rectangle = pygame.Rect(itr_fields_data[x]['x']*consts.BLOCK_SIZE, itr_fields_data[x]['y']*consts.BLOCK_SIZE, consts.BLOCK_SIZE, consts.BLOCK_SIZE)
+        if itr_fields_data[x]['fraction'] == "Lemon":
+            if itr_fields_data[x]['isOccupied']:
+                pygame.draw.rect(screen, consts.YELLOW, rectangle, 0)
+            else:
+                pygame.draw.rect(screen, consts.YELLOW_ACCENT, rectangle, 0)
+        elif itr_fields_data[x]['fraction'] == "Transparent":
+            if itr_fields_data[x]['isOccupied']:
+                pygame.draw.rect(screen, consts.RED, rectangle, 0)
+            else:
+                pygame.draw.rect(screen, consts.RED_ACCENT, rectangle, 0)
+        elif itr_fields_data[x]['fraction'] == "Green":
+            if itr_fields_data[x]['isOccupied']:
+                pygame.draw.rect(screen, consts.GREEN, rectangle, 0)
+            else:
+                pygame.draw.rect(screen, consts.GREEN_ACCENT, rectangle, 0)
+        elif itr_fields_data[x]['fraction'] == "Blue":
+            if itr_fields_data[x]['isOccupied']:
+                pygame.draw.rect(screen, consts.BLUE, rectangle, 0)
+            else:
+                pygame.draw.rect(screen, consts.BLUE_ACCENT, rectangle, 0)
+        else:
+            pygame.draw.rect(screen, consts.WHITE, rectangle, 0)
+
