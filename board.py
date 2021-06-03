@@ -16,8 +16,8 @@ class Board:
         Tworzy dwuwymiarową tablicę obiektów Field.
         """
         new_row = []
-        for y in range(self.__board_y):
-            for x in range(self.__board_x):
+        for _ in range(self.__board_y):
+            for _ in range(self.__board_x):
                 new_field = Field()
                 new_row.append(new_field)
             self.board_fields.append(new_row)
@@ -37,7 +37,7 @@ class Board:
         if field.get_fraction() == "none" or field.get_fraction() == fraction:
             return 1
         # kiedy na polu nie ma żadnej jednostki ale należy do przeciwnika
-        elif field.count_units(self) == 0:
+        elif field.count_units() == 0:
             return 1
         # na polu znajduje się co najmniej jedna jednostka przeciwna
         else:

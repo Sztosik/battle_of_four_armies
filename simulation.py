@@ -29,7 +29,7 @@ class Simulation:
         """
         data = []
         single_itr_data = []
-        for i in range(0, 500):
+        for i in range(0, 1500):
             # oczywiście trzeba zmienić ten warunek, dodać info o zajętych polach i jednostkach do klasy armia
             print("\n\niteration number = %s" % i)
             for army in self.__armies:

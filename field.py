@@ -64,4 +64,4 @@ class Field:
         """
         Zmienia przynależność pola do frakcji
         """
-        self.__fra
+        self.__fraction = fraction
