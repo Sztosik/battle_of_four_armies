@@ -1,23 +1,22 @@
-import random
-
-import config
 import logging
+import random
+from abc import ABC
+import config
 from board import Board
 
-
-logging.basicConfig(level=logging.CRITICAL)
+logging.basicConfig(level=config.LOGGING_LEVEL)
 logger = logging.getLogger(__name__)
 
 
-class Unit:
+class Unit(ABC):
+    """Abstrakcyjna klasa jednostki"""
     def __init__(
-        self, id, fraction: str, pos_x: int, pos_y: int, board: Board
+        self, fraction: str, pos_x: int, pos_y: int, board: Board
     ) -> Board:
-        self.__id = id
         self.__fraction = fraction
-        self.__health_points = config.Base_Unit_HP
-        self.__strength = config.Base_Unit_STRENGTH
-        self.__movement_points = config.Base_Unit_MOVEMENT_POINT
+        self.__health_points = config.BASE_UNIT_HP
+        self.__strength = config.BASE_UNIT_STRENGTH
+        self.__movement_points = config.BASE_UNIT_MOVEMENT_POINTS
         self.__pos_x = pos_x
         self.__pos_y = pos_y
         self.__is_alive = True
@@ -30,10 +29,10 @@ class Unit:
         Lusuje pole i sprawdza jego status i podejmuje decyzje o dalszych działaniach
         """
 
-        logger.debug("\nTura jednostki: %d" % id(self))
-        logger.debug("frakcja jednostki: %s" % self.__fraction)
+        logger.debug("\nTura jednostki: %d", id(self))
+        logger.debug("frakcja jednostki: %s", self.__fraction)
 
-        if self.__is_alive == True:
+        if self.__is_alive:
             movement = self.__movement_points
 
             while movement > 0:
@@ -45,7 +44,9 @@ class Unit:
                 move = board.is_it_free(pos_x, pos_y, self.__fraction)
                 # pole jest puste, albo stoi na nim sojusznik
                 if move == 1:
-                    logger.debug("pole które chce zwolnić: %d, %d" % (self.__pos_x, self.__pos_y))
+                    logger.debug(
+                        "pole które chce zwolnić: %d, %d", (self.__pos_x, self.__pos_y)
+                    )
                     # usuwa jednostkę z pola na którym stoi aktualnie
                     board.board_fields[self.__pos_y][self.__pos_x].remove_unit(self)
                     self.__pos_x = pos_x
@@ -63,7 +64,7 @@ class Unit:
         Dodaje siebie do listy jednostek znajdujących się na nowym polu
         """
 
-        logger.debug("Przejmuje pole %d, %d" % (x, y))
+        logger.debug("Przejmuje pole %d, %d", (x, y))
         board.board_fields[y][x].change_fraction(self.__fraction)
         # przekazuje wskaźnik na obecnie aktywny obiekt jednostki
         board.board_fields[y][x].add_unit(self)
@@ -79,14 +80,16 @@ class Unit:
             self.get_strength() + defense_modifier
         )  # zwiększa lub zmniejsza silę bazową o 10
         if enemy.get_hp() <= 0:
+            board.board_fields[y][x].remove_unit(enemy)
             enemy.just_die()
-        logger.critical("WALKA!!!")
+            logger.critical("Poległem :(")
 
     def get_damage(self, damage: float) -> None:
         """
         Zmienia stan punktów życia
         """
-        logger.critical("Jestem atakowany!!!")
+        self.__health_points -= damage
+        logger.critical("Jestem atakowany, moje HP: %d", self.__health_points)
 
     def get_strength(self) -> int:
         """
@@ -107,15 +110,15 @@ class Unit:
         return self.__health_points
 
 
-class Base_Unit(Unit):
-    def __init__(self, id, fraction, pos_x, pos_y, board):
-        super().__init__(id, fraction, pos_x, pos_y, board)
+class BaseUnit(Unit):
+    def __init__(self, fraction, pos_x, pos_y, board):
+        super().__init__(fraction, pos_x, pos_y, board)
 
 
 # silniejsza i bardziej wytrzymala, walczy z kilkoma jednostkami
-class Special_Unit_A(Unit):
-    def __init__(self, id, fraction, pos_x, pos_y):
-        super().__init__(id, fraction, pos_x, pos_y)
+class SpecialUnitA(Unit):
+    def __init__(self, fraction, pos_x, pos_y):
+        super().__init__(fraction, pos_x, pos_y)
         self.__health_points = config.SPECIAL_UNIT_HP
         self.__strength = config.SPECIAL_UNIT_STRENGTH
 
@@ -133,14 +136,14 @@ class Special_Unit_A(Unit):
 
 
 # wiecej movement pointsow
-class Special_Unit_B(Unit):
-    def __init__(self, id, fraction, pos_x, pos_y):
-        super().__init__(id, fraction, pos_x, pos_y)
+class SpecialUnitB(Unit):
+    def __init__(self, fraction, pos_x, pos_y):
+        super().__init__(fraction, pos_x, pos_y)
         self.__movement_points = config.SPECIAL_UNIT_MOVEMENT_POINT
 
 
 # przejmowanie terernu z dystansu
-class Special_Unit_C(Unit):
+class SpecialUnitC(Unit):
     def takeover_from_a_distance(self, board, x, y):
         throw_direction = random.randint(0, 3)  # 0:góra   1:prawo   2:dół   3:lewo
         throw_distance = random.randint(2, 10)
@@ -177,7 +180,7 @@ class Special_Unit_C(Unit):
 
 
 # przejmuje pola sasiednie
-class Special_Unit_D(Unit):
+class SpecialUnitD(Unit):
 
     # przejmuje wszystkie pola z ktorymi sasiaduje i są wolne : np x=2, y=2 przejmuje:
     # (1,1)(2,1)(3,1)
@@ -185,7 +188,7 @@ class Special_Unit_D(Unit):
     # (1,3)(2,3)(3,3)
 
     def capture_the_field(self, board, x, y):
-        board.board_fields[y][x].add_unit(self.__id)
+        board.board_fields[y][x].add_unit(self)
         for value in range(3):
             for value2 in range(3):
                 if (

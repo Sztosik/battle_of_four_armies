@@ -1,6 +1,6 @@
 class Stast:
-    def __init__(self, base_units: int, special_units: int, fiealds: int):
-        self.base_units = base_units
+    def __init__(self, BaseUnits: int, special_units: int, fiealds: int):
+        self.BaseUnits = BaseUnits
         self.special_units = special_units
         self.fiealds = fiealds
 

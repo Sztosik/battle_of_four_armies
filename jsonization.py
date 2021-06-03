@@ -2,10 +2,11 @@ from board import Board
 
 
 def is_occupied(unit_list):
-        if len(unit_list) == 0:
-            return False
-        else:
-            return True
+    if len(unit_list) == 0:
+        return False
+    else:
+        return True
+
 
 def jsonization(board: Board, board_x: int, board_y: int) -> list[dict]:
     """
@@ -21,12 +22,8 @@ def jsonization(board: Board, board_x: int, board_y: int) -> list[dict]:
                     "x": x,
                     "y": y,
                     "fraction": board.board_fields[y][x].get_fraction(),
-                    "isOccupied": field_state
+                    "isOccupied": field_state,
                 }
                 data.append(json_data)
 
     return data
-
-
-
-

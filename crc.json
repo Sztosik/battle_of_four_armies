@@ -68,7 +68,7 @@
   {
     "name": "Unit",
     "superclasses": "",
-    "subclasses": "Base_Unit, Unit_A, Unit_B, Unit_C, Unit_D",
+    "subclasses": "BaseUnit, Unit_A, Unit_B, Unit_C, Unit_D",
     "type": 2,
     "responsibilities": [
       "Defines the basic skills and characteristics of the units"
@@ -78,7 +78,7 @@
     ]
   },
   {
-    "name": "Base_Unit",
+    "name": "BaseUnit",
     "superclasses": "Unit",
     "subclasses": "",
     "type": 1,
@@ -90,7 +90,7 @@
     ]
   },
   {
-    "name": "Special_Unit_A",
+    "name": "SpecialUnitA",
     "superclasses": "Unit",
     "subclasses": "",
     "type": 1,
@@ -102,7 +102,7 @@
     ]
   },
   {
-    "name": "Special_Unit_B",
+    "name": "SpecialUnitB",
     "superclasses": "Unit",
     "subclasses": "",
     "type": 1,
@@ -114,7 +114,7 @@
     ]
   },
   {
-    "name": "Special_Unit_C",
+    "name": "SpecialUnitC",
     "superclasses": "Unit",
     "subclasses": "",
     "type": 1,
@@ -126,7 +126,7 @@
     ]
   },
   {
-    "name": "Special_Unit_D",
+    "name": "SpecialUnitD",
     "superclasses": "Unit",
     "subclasses": "",
     "type": 1,
