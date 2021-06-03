@@ -16,31 +16,31 @@ class Field:
         """
         Dodaje jednostkę do listy jednostek na polu
         """
-        print("jednostki na przejmowanym polu", len(self.__units))
-        for jednostka in self.__units:
-            print(" - ", id(jednostka))
+        # print("jednostki na przejmowanym polu", len(self.__units))
+        # for jednostka in self.__units:
+        #     print(" - ", id(jednostka))
 
         self.__units.append(unit)
 
-        print("jednostki na przejmowanym polu po przejęciu", len(self.__units))
-        for jednostka in self.__units:
-            print(" - ", id(jednostka))
+        # print("jednostki na przejmowanym polu po przejęciu", len(self.__units))
+        # for jednostka in self.__units:
+        #     print(" - ", id(jednostka))
 
     def remove_unit(self, unit):
         """
-        Usuwa jednostkę z listy jednostek na polu
+        Usuwa jednostkę z listy jednostek na polu.
         """
-        print("zwalniam pole, moje id: ", id(unit))
-        print("jednostki na zwalnianym polu", len(self.__units))
-        for jednostka in self.__units:
-            print(" - ", id(jednostka))
+        # print("zwalniam pole, moje id: ", id(unit))
+        # print("jednostki na zwalnianym polu", len(self.__units))
+        # for jednostka in self.__units:
+        #     print(" - ", id(jednostka))
 
         if len(self.__units) != 0:
             self.__units.remove(unit)
 
-        print("jednostki na zwalnianym polu po zwolniuniu", len(self.__units))
-        for jednostka in self.__units:
-            print(" - ", id(jednostka))
+        # print("jednostki na zwalnianym polu po zwolniuniu", len(self.__units))
+        # for jednostka in self.__units:
+        #     print(" - ", id(jednostka))
 
     def get_fraction(self) -> str:
         """

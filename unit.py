@@ -1,7 +1,12 @@
 import random
 
 import config
+import logging
 from board import Board
+
+
+logging.basicConfig(level=logging.CRITICAL)
+logger = logging.getLogger(__name__)
 
 
 class Unit:
@@ -25,8 +30,9 @@ class Unit:
         Lusuje pole i sprawdza jego status i podejmuje decyzje o dalszych działaniach
         """
 
-        print("\nTura jednostki: ", id(self))
-        print("frakcja jednostki: ", self.__fraction)
+        logger.debug("\nTura jednostki: %d" % id(self))
+        logger.debug("frakcja jednostki: %s" % self.__fraction)
+
         if self.__is_alive == True:
             movement = self.__movement_points
 
@@ -39,7 +45,7 @@ class Unit:
                 move = board.is_it_free(pos_x, pos_y, self.__fraction)
                 # pole jest puste, albo stoi na nim sojusznik
                 if move == 1:
-                    print("pole które chce zwolnić: ", self.__pos_x, self.__pos_y)
+                    logger.debug("pole które chce zwolnić: %d, %d" % (self.__pos_x, self.__pos_y))
                     # usuwa jednostkę z pola na którym stoi aktualnie
                     board.board_fields[self.__pos_y][self.__pos_x].remove_unit(self)
                     self.__pos_x = pos_x
@@ -48,7 +54,7 @@ class Unit:
                     movement -= 1
                 # na polu stoi co najmniej jedna wroga jednostka
                 if move == 2:
-                    self.fight()
+                    self.fight(board, pos_x, pos_y)
                     movement -= 1
 
     def capture_the_field(self, board: Board, x: int, y: int) -> None:
@@ -56,7 +62,8 @@ class Unit:
         Zmienia przynależność pola do frakcji.
         Dodaje siebie do listy jednostek znajdujących się na nowym polu
         """
-        print("Przejmuje pole ", x, y)
+
+        logger.debug("Przejmuje pole %d, %d" % (x, y))
         board.board_fields[y][x].change_fraction(self.__fraction)
         # przekazuje wskaźnik na obecnie aktywny obiekt jednostki
         board.board_fields[y][x].add_unit(self)
@@ -73,13 +80,13 @@ class Unit:
         )  # zwiększa lub zmniejsza silę bazową o 10
         if enemy.get_hp() <= 0:
             enemy.just_die()
-        print("Walka")
+        logger.critical("WALKA!!!")
 
     def get_damage(self, damage: float) -> None:
         """
         Zmienia stan punktów życia
         """
-        print("Jestem atakowany!!!")
+        logger.critical("Jestem atakowany!!!")
 
     def get_strength(self) -> int:
         """
