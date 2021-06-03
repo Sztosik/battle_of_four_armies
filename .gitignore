@@ -2,6 +2,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/opencv,python,vscode,pycharm,venv
 # Edit at https://www.toptal.com/developers/gitignore?templates=opencv,python,vscode,pycharm,venv
 
+
+./sample.json
+
 ### OpenCV ###
 #OpenCV for Mac and Linux
 #build and release folders
