@@ -31,11 +31,13 @@ class Simulation:
         self.__armies.append(new_army)
 
     def start(self):
+
         """Rozpoczyna symulacje."""
         data = []
         single_itr_data = []
         for i in range(0, 600):
             logger.info("iteration number = %s", i)
+
             for army in self.__armies:
                 army.start(self.board)
 
