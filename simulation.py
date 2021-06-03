@@ -24,7 +24,8 @@ class Simulation:
         """
         Rozpoczyna symulacje.
         """
-        for i in range(0, 5):
+        for i in range(0, 1500):
+            print(i)
             # oczywiście trzeba zmienić ten warunek, dodać info o zajętych polach i jednostkach do klasy armia
             print("\n\niteration number = %s" % i)
             for army in self.__armies:
