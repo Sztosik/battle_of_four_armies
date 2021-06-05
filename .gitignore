@@ -4,6 +4,7 @@
 
 
 ./sample.json
+./.vscode
 
 ### OpenCV ###
 #OpenCV for Mac and Linux

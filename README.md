@@ -6,8 +6,9 @@
 $ git clone https://github.com/Sztosik/PO-Project.git
 $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 $ cd PO-Project
-$ poetry init
-$ python simulation.py
+$ poetry install
+$ poetry shell
+$ python -m battle.simulation.simulation
 ```
 
 ## Scripts
@@ -30,11 +31,8 @@ $ ./mypy_check.sh
 ```
 
 ## TO DO
-1. rozdzielić klasy do różnych plików - done
+1. Przenieść wizualizacje na osobny wątek
 2. zrobić system zbierania i zapisu danych
-3. zrobić klasy jednostek specjalnych
-4. napisać metodę walki i otrzymywania obrażeń - in progress
-5. napisać warunek końca symulacji
 6. doprcować konstruktor metody Simulation
 7. zrobić komentarze w kodzie co by się później nie pogubić - in progress
 

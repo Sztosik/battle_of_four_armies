@@ -10,4 +10,5 @@
 set -Eeuo pipefail
 cd "$(dirname "$(readlink -f "$0")")"/..
 
-poetry run mypy -p drone --namespace-packages
+poetry run mypy -p battle --namespace-packages
+

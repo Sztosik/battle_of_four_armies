@@ -3,8 +3,8 @@ set -Eeuo pipefail
 
 cd "$(dirname "$(readlink -f "$0")")"/..
 
-git ls-files | grep 'py$' | xargs isort 
-git ls-files | grep 'py$' | xargs black
+git ls-files | grep 'py$' | xargs .venv/bin/isort
+git ls-files | grep 'py$' | xargs .venv/bin/black
 
 git_output="$(git status --porcelain)"
 
