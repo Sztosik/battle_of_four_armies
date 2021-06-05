@@ -1,5 +1,6 @@
 from battle.army.unit import BaseUnit
 from battle.board.board import Board
+from battle.simulation.sim_context import Position
 
 
 class Army:
@@ -7,19 +8,17 @@ class Army:
 
     def __init__(
         self,
-        fraction,
-        init_number_of_base_units,
-        init_number_of_special_units,
-        start_point_x,
-        start_point_y,
-        board,
+        fraction: str,
+        init_number_of_base_units: int,
+        init_number_of_special_units: int,
+        start_point: Position,
+        board: Board,
     ):
         self.fraction = fraction
         self.__init_number_of_base_units = init_number_of_base_units
         self.__init_number_of_special_units = init_number_of_special_units
         self.__unit_list = []
-        self.__start_point_x = start_point_x
-        self.__start_point_y = start_point_y
+        self.__start_point = start_point
 
         self.generate_unit_list(board)
 
@@ -29,7 +28,7 @@ class Army:
         """
         for _ in range(self.__init_number_of_base_units):
             new_unit = BaseUnit(
-                self.fraction, self.__start_point_x, self.__start_point_y, board
+                fraction=self.fraction, pos=self.__start_point, board=board
             )
             self.__unit_list.append(new_unit)
 

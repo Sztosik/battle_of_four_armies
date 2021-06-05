@@ -2,6 +2,14 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Posision:
+class Position:
     x: int
     y: int
+
+
+@dataclass
+class BoardData:
+    x: int
+    y: int
+    fraction: str
+    isOccupied: bool

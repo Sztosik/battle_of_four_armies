@@ -1,5 +1,6 @@
 import battle.simulation.config as config
 from battle.board.field import Field
+from battle.simulation.sim_context import Position
 
 
 class Board:
@@ -29,14 +30,16 @@ class Board:
             self.board_fields.append(row)
             row = []
 
-    def is_it_free(self, x: int, y: int, fraction: str) -> int:
+    def is_it_free(self, pos: Position, fraction: str) -> int:
         """Sprawdza stan pola."""
 
         # pole nie istnieje
-        if (x < 0 or x >= self.__board_x) or (y < 0 or y >= self.__board_y):
+        if (pos.x < 0 or pos.x >= self.__board_x) or (
+            pos.y < 0 or pos.y >= self.__board_y
+        ):
             return 0
 
-        field = self.board_fields[y][x]
+        field = self.board_fields[pos.y][pos.x]
 
         # żadna jednostka nie stała na tym polu albo jest sojusznicze
         if field.get_fraction() == "none" or field.get_fraction() == fraction:

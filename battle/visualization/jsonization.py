@@ -4,13 +4,13 @@ from battle.board.board import Board
 def is_occupied(unit_list):
     if len(unit_list) == 0:
         return False
-    else:
-        return True
+    return True
 
 
 def jsonization(board: Board, board_x: int, board_y: int) -> list[dict]:
     """
-    Zwraca listę słowników zawierającą informacje na temat każdego pola, które stanem różni się od domyślnego.
+    Zwraca listę słowników zawierającą informacje na temat każdego pola,
+    które stanem różni się od domyślnego.
     """
     data: list[dict] = []
 

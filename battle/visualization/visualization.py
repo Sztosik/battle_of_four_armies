@@ -1,4 +1,5 @@
 import json
+import sys
 
 import pygame
 
@@ -21,7 +22,7 @@ def main_visualization(path) -> None:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                exit()
+                sys.exit()
 
         pygame.display.update()
         pygame.time.delay(consts.SINGLE_FRAME_DURATION)
@@ -39,12 +40,12 @@ def draw_grid(itr_fields_data) -> None:
             consts.BLOCK_SIZE,
             consts.BLOCK_SIZE,
         )
-        if itr_fields_data[x]["fraction"] == "Lemon":
+        if itr_fields_data[x]["fraction"] == "Yellow":
             if itr_fields_data[x]["isOccupied"]:
                 pygame.draw.rect(screen, consts.YELLOW, rectangle, 0)
             else:
                 pygame.draw.rect(screen, consts.YELLOW_ACCENT, rectangle, 0)
-        elif itr_fields_data[x]["fraction"] == "Transparent":
+        elif itr_fields_data[x]["fraction"] == "Red":
             if itr_fields_data[x]["isOccupied"]:
                 pygame.draw.rect(screen, consts.RED, rectangle, 0)
             else:

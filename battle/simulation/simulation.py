@@ -21,13 +21,13 @@ class Simulation:
         self.__board_y: int = 100
         self.board: Board = Board(self.__board_x, self.__board_y)
 
-        new_army = Army("Lemon", 15, 7, 40, 40, self.board)
+        new_army = Army("Red", 15, 7, config.POS_RED, self.board)
         self.__armies.append(new_army)
-        new_army = Army("Green", 15, 7, 40, 60, self.board)
+        new_army = Army("Green", 15, 7, config.POS_GREEN, self.board)
         self.__armies.append(new_army)
-        new_army = Army("Blue", 15, 7, 60, 40, self.board)
+        new_army = Army("Blue", 15, 7, config.POS_BLUE, self.board)
         self.__armies.append(new_army)
-        new_army = Army("Transparent", 15, 7, 60, 60, self.board)
+        new_army = Army("Yellow", 15, 7, config.POS_YELLOW, self.board)
         self.__armies.append(new_army)
 
     def start(self):
@@ -41,7 +41,6 @@ class Simulation:
             for army in self.__armies:
                 army.start(self.board)
 
-            # TODO: Przenieść wizualizacje na osobny wątek i zsynchronizowac z głównym
             single_itr_data.append(self.board.get_all_fields_data())
             data.append(jsonization(self.board, self.__board_x, self.__board_y))
         logger.critical(self.board.captured_fields())
