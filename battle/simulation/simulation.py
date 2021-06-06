@@ -1,10 +1,13 @@
-import json
+import copy
 import logging
+import sys
+import threading
+import time
+from queue import Queue
 
 import battle.simulation.config as config
 from battle.army.army import Army
 from battle.board.board import Board
-from battle.visualization.jsonization import jsonization
 from battle.visualization.visualization import main_visualization
 
 logging.basicConfig(level=config.LOGGING_LEVEL)
@@ -30,26 +33,39 @@ class Simulation:
         new_army = Army("Yellow", 15, 7, config.POS_YELLOW, self.board)
         self.__armies.append(new_army)
 
-    def start(self):
-
+    def sim_thread(self, board_state):
         """Rozpoczyna symulacje."""
-        data = []
-        single_itr_data = []
-        for i in range(0, 600):
+
+        for i in range(0, 5_000):
             logger.info("iteration number = %s", i)
 
             for army in self.__armies:
                 army.start(self.board)
 
-            single_itr_data.append(self.board.get_all_fields_data())
-            data.append(jsonization(self.board, self.__board_x, self.__board_y))
+            current_board_state = copy.copy(self.board)
+            board_state.put(current_board_state)
+            time.sleep(config.SINGLE_FRAME_DURATION / 1000)
+
         logger.critical(self.board.captured_fields())
+        sys.exit()
 
-        with open("sample.json", "w") as outfile:
-            json.dump(data, outfile)
+    def run(self):
+        board_state = Queue()
 
-        path = "sample.json"
-        main_visualization(path)
+        simulation_thread = threading.Thread(
+            target=self.sim_thread, args=(board_state,)
+        )
+        visualization_thread = threading.Thread(
+            target=main_visualization,
+            args=(board_state, self.__board_x, self.__board_y),
+        )
+
+        simulation_thread.start()
+        visualization_thread.start()
+
+        board_state.join()
+        simulation_thread.join()
+        visualization_thread.join()
 
     def save_stats(self):
         pass
@@ -57,4 +73,4 @@ class Simulation:
 
 if __name__ == "__main__":
     Symulacja = Simulation()
-    Symulacja.start()
+    Symulacja.run()
