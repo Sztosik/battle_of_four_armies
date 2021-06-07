@@ -5,11 +5,12 @@ import pygame
 
 import battle.visualization.consts as consts
 
-screen = pygame.display.set_mode((consts.WIDTH, consts.WIDTH))
 
 
-def main_visualization(path) -> None:
+
+def main_visualization(path, size_x: int, size_y: int) -> None:
     pygame.init()
+    screen = pygame.display.set_mode((size_x * consts.BLOCK_SIZE, size_y * consts.BLOCK_SIZE))
     pygame.display.set_caption("Visualization")
     screen.fill(consts.WHITE)
 
@@ -17,7 +18,7 @@ def main_visualization(path) -> None:
         data = json.load(f)
     itr = 0
     while itr < len(data):
-        draw_grid(data[itr])
+        draw_grid(data[itr], screen)
         itr += 1
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -31,7 +32,7 @@ def main_visualization(path) -> None:
         pass
 
 
-def draw_grid(itr_fields_data) -> None:
+def draw_grid(itr_fields_data, screen) -> None:
 
     for x in range(len(itr_fields_data)):
         rectangle = pygame.Rect(
