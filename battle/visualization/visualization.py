@@ -5,6 +5,7 @@ import pygame
 
 import battle.simulation.config as config
 import battle.visualization.consts as consts
+
 from battle.board.board import Board
 from battle.simulation.sim_context import BoardData
 
