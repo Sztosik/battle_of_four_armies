@@ -2,6 +2,8 @@ import logging
 
 from battle.simulation.sim_context import Position
 
+SINGLE_FRAME_DURATION = 1
+
 BASE_UNIT_HP = 100
 SPECIAL_UNIT_HP = 300
 BASE_UNIT_STRENGTH = 50

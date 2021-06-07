@@ -1,8 +1,6 @@
 WIDTH = 1000  # jednak nie dotykac
 BLOCK_SIZE = 10  # jednak nie dotykac
 
-SINGLE_FRAME_DURATION = 30
-
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
@@ -18,6 +16,6 @@ GREEN = (0, 100, 0)
 GREEN_ACCENT = (152, 251, 152)
 GREEN_FIGHT = (107, 142, 35)
 
-YELLOW = (255, 204, 0)
-YELLOW_ACCENT = (255, 255, 204)
+YELLOW = (230, 184, 0)
+YELLOW_ACCENT = (255, 255, 77)
 YELLOW_FIGHT = (204, 204, 0)

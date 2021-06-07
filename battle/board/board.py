@@ -12,10 +12,10 @@ class Board:
     2. Zwraca stany pól
     """
 
-    def __init__(self, board_x, board_y):
-        self.board_fields = []
-        self.__board_x: int = board_x
-        self.__board_y: int = board_y
+    def __init__(self, board_x: int, board_y: int):
+        self.board_fields: list[Field] = []
+        self.__board_x = board_x
+        self.__board_y = board_y
         self.generate_board()
 
     def generate_board(self):
