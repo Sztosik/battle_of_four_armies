@@ -1,4 +1,4 @@
-from battle.army.unit import BaseUnit
+from battle.army.unit import BaseUnit, SpecialUnitA, Unit
 from battle.board.board import Board
 from battle.simulation.sim_context import Position
 
@@ -17,7 +17,7 @@ class Army:
         self.fraction = fraction
         self.__init_number_of_base_units = init_number_of_base_units
         self.__init_number_of_special_units = init_number_of_special_units
-        self.__unit_list = []
+        self.__unit_list: list[Unit] = []
         self.__start_point = start_point
 
         self.generate_unit_list(board)
@@ -27,14 +27,18 @@ class Army:
         Tworzy obiekty jednostek należących do armii i dodaje je do listy
         """
         for _ in range(self.__init_number_of_base_units):
-            new_unit = BaseUnit(
+            new_unit: BaseUnit = BaseUnit(
                 fraction=self.fraction, pos=self.__start_point, board=board
             )
             self.__unit_list.append(new_unit)
 
-        # for id in range(self.__init_number_of_special_units):
-        #     new_unit = BaseUnit(id, self.fraction, self.__start_point_x, self.__start_point_y)
-        #     self.__unit_list.append(new_unit)
+        # TODO
+        if self.fraction == "Red":
+            for _ in range(self.__init_number_of_special_units):
+                new_special_unit: SpecialUnitA = SpecialUnitA(
+                    fraction=self.fraction, pos=self.__start_point, board=board
+                )
+                self.__unit_list.append(new_special_unit)
 
     def start(self, board: Board) -> None:
         """

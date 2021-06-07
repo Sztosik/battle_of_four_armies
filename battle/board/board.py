@@ -13,7 +13,7 @@ class Board:
     """
 
     def __init__(self, board_x: int, board_y: int):
-        self.board_fields: list[Field] = []
+        self.board_fields: list[list[Field]] = []
         self.__board_x = board_x
         self.__board_y = board_y
         self.generate_board()
@@ -23,9 +23,9 @@ class Board:
         Tworzy dwuwymiarową tablicę obiektów Field.
         """
         row: list[Field] = []
-        for _ in range(self.__board_y):
-            for _ in range(self.__board_x):
-                field = Field()
+        for y in range(self.__board_y):
+            for x in range(self.__board_x):
+                field = Field(Position(x, y))
                 row.append(field)
             self.board_fields.append(row)
             row = []

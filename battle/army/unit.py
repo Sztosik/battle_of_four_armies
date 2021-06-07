@@ -74,21 +74,21 @@ class Unit(ABC):
         z listy obiektów znajdujących się na polu.
         """
         defense_modifier = board.board_fields[pos.y][pos.x].get_defense_modifier()
-        enemy = board.board_fields[pos.y][pos.x].get_units()[0]
+        enemy: Unit = board.board_fields[pos.y][pos.x].get_units()[0]
         enemy.get_damage(
             self.get_strength() + defense_modifier
         )  # zwiększa lub zmniejsza silę bazową o 10
         if enemy.get_hp() <= 0:
             board.board_fields[pos.y][pos.x].remove_unit(enemy)
             enemy.just_die()
-            logger.critical("Poległem :(")
+            logger.debug("Poległem :(")
 
     def get_damage(self, damage: int) -> None:
         """
         Zmienia stan punktów życia
         """
         self.__health_points -= damage
-        logger.critical("Jestem atakowany, moje HP: %d", self.__health_points)
+        logger.debug("Jestem atakowany, moje HP: %d", self.__health_points)
 
     def get_strength(self) -> int:
         """
@@ -110,14 +110,19 @@ class Unit(ABC):
 
 
 class BaseUnit(Unit):
+    """Podstawowa jednstka. Identyczna dla wszystkich armii."""
+
     def __init__(self, fraction, pos, board):
         super().__init__(fraction=fraction, pos=pos, board=board)
 
 
-# silniejsza i bardziej wytrzymala, walczy z kilkoma jednostkami
 class SpecialUnitA(Unit):
+    """Silniejsza i bardziej wytrzymala, walczy z kilkoma jednostkami."""
+
     def __init__(self, fraction, pos, board):
         super().__init__(fraction, pos, board)
+
+        # TODO: W tym miejscu występuje błąd, pola nie zostają nadpisane
         self.__health_points = config.SPECIAL_UNIT_HP
         self.__strength = config.SPECIAL_UNIT_STRENGTH
 
@@ -127,59 +132,61 @@ class SpecialUnitA(Unit):
         z listy obiektów znajdujących się na polu.
         """
         defense_modifier = board.board_fields[pos.y][pos.x].get_defense_modifier()
-        enemies = board.board_fields[pos.y][pos.x].get_units()
+        enemies: list[Unit] = board.board_fields[pos.y][pos.x].get_units()
         for enemy in enemies:
             enemy.get_damage(self.get_strength() + defense_modifier)
+            logger.critical("JEDNOSTKA SPECJALNA A - SIŁA: %d" % self.get_strength())
             if enemy.get_hp() <= 0:
+                board.board_fields[pos.y][pos.x].remove_unit(enemy)
                 enemy.just_die()
+                logger.critical("Poległem :(")
 
 
-# wiecej movement pointsow
+# TODO
 class SpecialUnitB(Unit):
+    """Jednostka posiadająca więcej punktów ruchu."""
+
     def __init__(self, fraction, pos: Position, board: Board):
         super().__init__(fraction, pos, board)
         self.__movement_points = config.SPECIAL_UNIT_MOVEMENT_POINT
 
 
-# przejmowanie terernu z dystansu
+# TODO
 class SpecialUnitC(Unit):
-    def takeover_from_a_distance(self, board, pos):
+    """Jednostka Przejmująca teren na dystans"""
+
+    def takeover_from_a_distance(self, board: Board, pos: Position):
         throw_direction = random.randint(0, 3)  # 0:góra   1:prawo   2:dół   3:lewo
         throw_distance = random.randint(2, 10)
 
         if throw_direction == 0:
-            target_pos_x = pos.x
-            target_pos_y = pos.y - throw_distance
+            target_pos = Position(pos.x, pos.y - throw_distance)
 
         elif throw_direction == 1:
-            target_pos_x = pos.x + throw_distance
-            target_pos_y = pos.y
+            target_pos = Position(pos.x + throw_distance, pos.y)
 
         elif throw_direction == 2:
-            target_pos_x = pos.x
-            target_pos_y = pos.y + throw_distance
+            target_pos = Position(pos.x, pos.y + throw_distance)
 
         elif throw_direction == 3:
-            target_pos_x = pos.x - throw_distance
-            target_pos_y = pos.y
+            target_pos = Position(pos.x - throw_distance, pos.y)
 
         for value in range(3):
             for value2 in range(3):
-                if (
-                    board.is_it_free(
-                        target_pos_y - 1 + value,
-                        target_pos_x - 1 + value2,
-                        self.__fraction,
+                target_pos2 = Position(
+                    target_pos.x - 1 + value2, target_pos.y - 1 + value
+                )
+                if board.is_it_free(target_pos2, self.__fraction) == 1:
+                    board.board_fields[target_pos2.y][target_pos2.x].change_fraction(
+                        self.__fraction
                     )
-                    == 1
-                ):
-                    board.board_fields[target_pos_y - 1 + value][
-                        target_pos_x - 1 + value2
-                    ].change_fraction(self.__fraction)
 
 
+# TODO
 # przejmuje pola sasiednie
 class SpecialUnitD(Unit):
+
+    # BRAKUJE TUTAJ KONSTRUKTORA
 
     # przejmuje wszystkie pola z ktorymi sasiaduje i są wolne : np x=2, y=2 przejmuje:
     # (1,1)(2,1)(3,1)

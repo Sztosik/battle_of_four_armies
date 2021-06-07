@@ -5,11 +5,8 @@ import pygame
 
 import battle.simulation.config as config
 import battle.visualization.consts as consts
-
 from battle.board.board import Board
 from battle.simulation.sim_context import BoardData
-
-
 
 
 # TODO: Zrobić z tego klasę
@@ -19,32 +16,36 @@ def is_occupied(unit_list):
     return True
 
 
-def get_board_data(board: Board, board_x: int, board_y: int) -> list[BoardData]:
+def get_board_data(board: Board) -> list[BoardData]:
     board_data: list[BoardData] = []
 
-    for x in range(board_x):
-        for y in range(board_y):
-            field_state = is_occupied(board.board_fields[y][x].get_units())
-            if not board.board_fields[y][x].get_fraction() == "none":
-                fieald_data = BoardData(
-                    x=x,
-                    y=y,
-                    fraction=board.board_fields[y][x].get_fraction(),
-                    isOccupied=field_state,
-                )
-                board_data.append(fieald_data)
+    for field in board.get_fields():
+
+        field_state = is_occupied(field.get_units())
+
+        if not field.get_fraction() == "none":
+            fieald_data = BoardData(
+                x=field.position.x,
+                y=field.position.y,
+                fraction=field.get_fraction(),
+                isOccupied=field_state,
+            )
+            board_data.append(fieald_data)
+
     return board_data
 
 
 def main_visualization(board_queue: Queue, board_x: int, board_y: int) -> None:
     pygame.init()
-    screen = pygame.display.set_mode((board_x * consts.BLOCK_SIZE, board_y * consts.BLOCK_SIZE))
+    screen = pygame.display.set_mode(
+        (board_x * consts.BLOCK_SIZE, board_y * consts.BLOCK_SIZE)
+    )
     pygame.display.set_caption("Visualization")
     screen.fill(consts.WHITE)
 
     while True:
         board = board_queue.get()
-        board_data = get_board_data(board, board_x, board_y)
+        board_data = get_board_data(board)
 
         draw_grid(board_data, screen)
         for event in pygame.event.get():

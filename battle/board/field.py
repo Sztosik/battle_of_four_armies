@@ -1,5 +1,7 @@
 import random
 
+from battle.simulation.sim_context import Position
+
 
 class Field:
     """
@@ -8,10 +10,11 @@ class Field:
     Przechowuje chrakterystykę oraz stan pola.
     """
 
-    def __init__(self):
+    def __init__(self, position: Position):
         self.__defense_modifier: int = random.randint(-10, 10)
         self.__units: list = []
         self.__fraction: str = "none"
+        self.position = position
 
     def count_units(self):
         """Liczy jednostki znajdujące się na polu"""

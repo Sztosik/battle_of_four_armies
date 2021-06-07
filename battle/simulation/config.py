@@ -2,12 +2,12 @@ import logging
 
 from battle.simulation.sim_context import Position
 
-SINGLE_FRAME_DURATION = 1
+SINGLE_FRAME_DURATION = 30
 
 BASE_UNIT_HP = 100
 SPECIAL_UNIT_HP = 300
-BASE_UNIT_STRENGTH = 50
-SPECIAL_UNIT_STRENGTH = 30
+BASE_UNIT_STRENGTH = 20
+SPECIAL_UNIT_STRENGTH = 50
 BASE_UNIT_MOVEMENT_POINTS = 1
 SPECIAL_UNIT_MOVEMENT_POINT = 1
 BOARD_X = 20
@@ -15,7 +15,7 @@ BOARD_Y = 20
 FRACTION_NAMES = ["Red", "Green", "Blue", "Yellow"]
 LOGGING_LEVEL = logging.CRITICAL
 
-POS_RED = Position(40, 40)
-POS_GREEN = Position(40, 60)
-POS_BLUE = Position(60, 40)
-POS_YELLOW = Position(60, 60)
+POS_RED = Position(20, 20)
+POS_GREEN = Position(20, 30)
+POS_BLUE = Position(30, 20)
+POS_YELLOW = Position(30, 30)

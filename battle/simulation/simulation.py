@@ -20,17 +20,17 @@ class Simulation:
     def __init__(self):
         self.__armies: list[Army] = []
         self.__fraction_names: list[str] = config.FRACTION_NAMES
-        self.__board_x: int = 100
-        self.__board_y: int = 100
+        self.__board_x: int = 50
+        self.__board_y: int = 50
         self.board: Board = Board(self.__board_x, self.__board_y)
 
-        new_army = Army("Red", 15, 7, config.POS_RED, self.board)
+        new_army = Army("Red", 0, 8, config.POS_RED, self.board)
         self.__armies.append(new_army)
-        new_army = Army("Green", 15, 7, config.POS_GREEN, self.board)
+        new_army = Army("Green", 8, 7, config.POS_GREEN, self.board)
         self.__armies.append(new_army)
-        new_army = Army("Blue", 15, 7, config.POS_BLUE, self.board)
+        new_army = Army("Blue", 8, 7, config.POS_BLUE, self.board)
         self.__armies.append(new_army)
-        new_army = Army("Yellow", 15, 7, config.POS_YELLOW, self.board)
+        new_army = Army("Yellow", 8, 7, config.POS_YELLOW, self.board)
         self.__armies.append(new_army)
 
     def sim_thread(self, board_state):
@@ -46,7 +46,7 @@ class Simulation:
             board_state.put(current_board_state)
             time.sleep(config.SINGLE_FRAME_DURATION / 1000)
 
-        logger.critical(self.board.captured_fields())
+            logger.critical(self.board.captured_fields())
         sys.exit()
 
     def run(self):
