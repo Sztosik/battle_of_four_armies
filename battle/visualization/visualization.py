@@ -8,7 +8,7 @@ import battle.visualization.consts as consts
 from battle.board.board import Board
 from battle.simulation.sim_context import BoardData
 
-screen = pygame.display.set_mode((consts.WIDTH, consts.WIDTH))
+
 
 
 # TODO: Zrobić z tego klasę
@@ -37,6 +37,7 @@ def get_board_data(board: Board, board_x: int, board_y: int) -> list[BoardData]:
 
 def main_visualization(board_queue: Queue, board_x: int, board_y: int) -> None:
     pygame.init()
+    screen = pygame.display.set_mode((board_x * consts.BLOCK_SIZE, board_y * consts.BLOCK_SIZE))
     pygame.display.set_caption("Visualization")
     screen.fill(consts.WHITE)
 
@@ -44,7 +45,7 @@ def main_visualization(board_queue: Queue, board_x: int, board_y: int) -> None:
         board = board_queue.get()
         board_data = get_board_data(board, board_x, board_y)
 
-        draw_grid(board_data)
+        draw_grid(board_data, screen)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -54,7 +55,7 @@ def main_visualization(board_queue: Queue, board_x: int, board_y: int) -> None:
         pygame.time.delay(config.SINGLE_FRAME_DURATION)
 
 
-def draw_grid(itr_fields_data: list[BoardData]) -> None:
+def draw_grid(itr_fields_data: list[BoardData], screen) -> None:
 
     for field_data in itr_fields_data:
         rectangle = pygame.Rect(
