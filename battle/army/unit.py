@@ -13,11 +13,19 @@ logger = logging.getLogger(__name__)
 class Unit(ABC):
     """Abstrakcyjna klasa jednostki"""
 
-    def __init__(self, fraction: str, pos: Position, board: Board) -> None:
+    def __init__(
+        self,
+        fraction: str,
+        pos: Position,
+        board: Board,
+        health_points=config.BASE_UNIT_HP,
+        strength=config.BASE_UNIT_STRENGTH,
+        movement_points=config.BASE_UNIT_MOVEMENT_POINTS,
+    ) -> None:
         self.__fraction = fraction
-        self.__health_points = config.BASE_UNIT_HP
-        self.__strength = config.BASE_UNIT_STRENGTH
-        self.__movement_points = config.BASE_UNIT_MOVEMENT_POINTS
+        self.__health_points = health_points
+        self.__strength = strength
+        self.__movement_points = movement_points
         self.__pos = pos
         self.__is_alive = True
         # przejmuje pole na którym się respi

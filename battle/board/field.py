@@ -44,3 +44,8 @@ class Field:
     def change_fraction(self, fraction: str) -> None:
         """Zmienia przynależność pola do frakcji"""
         self.__fraction = fraction
+
+    def is_occupied(self):
+        if len(self.__units) == 0:
+            return False
+        return True

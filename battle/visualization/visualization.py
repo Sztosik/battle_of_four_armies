@@ -8,12 +8,7 @@ import battle.visualization.consts as consts
 from battle.board.board import Board
 from battle.simulation.sim_context import BoardData
 
-
 # TODO: Zrobić z tego klasę
-def is_occupied(unit_list):
-    if len(unit_list) == 0:
-        return False
-    return True
 
 
 def get_board_data(board: Board) -> list[BoardData]:
@@ -21,7 +16,7 @@ def get_board_data(board: Board) -> list[BoardData]:
 
     for field in board.get_fields():
 
-        field_state = is_occupied(field.get_units())
+        field_state = field.is_occupied()
 
         if not field.get_fraction() == "none":
             fieald_data = BoardData(
