@@ -49,7 +49,7 @@ class Simulation:
             json.dump(data, outfile)
 
         path = "sample.json"
-        main_visualization(path)
+        main_visualization(path, self.__board_x, self.__board_y)
 
     def save_stats(self):
         pass
