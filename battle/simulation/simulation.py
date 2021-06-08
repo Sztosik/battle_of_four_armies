@@ -26,7 +26,7 @@ class Simulation:
             self.__armies: list[Army] = []
             self.__board_x: int = init_data['board_x']
             self.__board_y: int = init_data['board_y']
-            self.__end_condition = 0.6
+            self.__end_condition = init_data['percentage']
             self.board: Board = Board(self.__board_x, self.__board_y)
             self.stats = Stast()
             # init_data[]
