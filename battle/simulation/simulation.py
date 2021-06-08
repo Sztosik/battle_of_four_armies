@@ -1,4 +1,5 @@
 import copy
+import json
 import logging
 import sys
 import threading
@@ -18,23 +19,51 @@ logger = logging.getLogger(__name__)
 class Simulation:
     """Główna klasa inicjująca i startująca symulacje."""
 
-    def __init__(self):
-        self.__armies: list[Army] = []
-        self.__fraction_names: list[str] = config.FRACTION_NAMES
-        self.__board_x: int = 50
-        self.__board_y: int = 50
-        self.board: Board = Board(self.__board_x, self.__board_y)
-        self.__end_condition = 0.6
-        self.stats = Stast()
+    def __init__(self, json_path = "init_data.json"):
+        with open(json_path, 'r') as f:
+            init_data = json.load(f)
 
-        new_army = Army("Red", 0, 50, config.POS_RED, self.board)
-        self.__armies.append(new_army)
-        new_army = Army("Green", 50, 7, config.POS_GREEN, self.board)
-        self.__armies.append(new_army)
-        new_army = Army("Blue", 50, 7, config.POS_BLUE, self.board)
-        self.__armies.append(new_army)
-        new_army = Army("Yellow", 50, 7, config.POS_YELLOW, self.board)
-        self.__armies.append(new_army)
+            self.__armies: list[Army] = []
+            self.__board_x: int = init_data['board_x']
+            self.__board_y: int = init_data['board_y']
+            self.__end_condition = 0.6
+            self.board: Board = Board(self.__board_x, self.__board_y)
+            self.stats = Stast()
+            # init_data[]
+            new_army = Army(
+                "Red",
+                init_data['red_base_units'],
+                init_data['red_special_units'],
+                config.POS_RED,
+                self.board
+            )
+            self.__armies.append(new_army)
+
+            new_army = Army(
+                "Green",
+                init_data['green_base_units'],
+                init_data['green_special_units'],
+                config.POS_GREEN,
+                self.board
+            )
+            self.__armies.append(new_army)
+
+            new_army = Army(
+                "Blue", 
+                init_data['blue_base_units'], 
+                init_data['blue_special_units'], 
+                config.POS_BLUE, 
+                self.board
+            )
+            self.__armies.append(new_army)
+
+            new_army = Army(
+                "Yellow", 
+                init_data['yellow_base_units'], 
+                init_data['yellow_special_units'], 
+                config.POS_YELLOW, 
+                self.board)
+            self.__armies.append(new_army)
 
     def sim_thread(self, board_state: Queue):
         """Rozpoczyna symulacje."""

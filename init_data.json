@@ -1,0 +1,13 @@
+{
+  "yellow_base_units": 20,
+  "yellow_special_units": 5,
+  "red_base_units": 20,
+  "red_special_units": 5,
+  "blue_base_units": 20,
+  "blue_special_units": 5,
+  "green_base_units": 20,
+  "green_special_units": 5,
+  "board_x": 50,
+  "board_y": 50,
+  "delay": 10
+}
