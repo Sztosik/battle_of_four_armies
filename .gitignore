@@ -4,7 +4,9 @@
 
 
 sample.json
-./.vscode
+*.csv
+captured_fields_stats.csv
+.vscode
 
 ### OpenCV ###
 #OpenCV for Mac and Linux

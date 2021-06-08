@@ -1,8 +1,8 @@
 import sys
+import time
 from queue import Queue
 
 import pygame
-import time
 
 import battle.simulation.config as config
 import battle.visualization.consts as consts
@@ -51,7 +51,7 @@ def main_visualization(board_queue: Queue, board_x: int, board_y: int) -> None:
 
         pygame.display.update()
         pygame.time.delay(config.SINGLE_FRAME_DURATION)
-    
+
     while True:
         time.sleep(1)
         for event in pygame.event.get():

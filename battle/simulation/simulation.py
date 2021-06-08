@@ -57,7 +57,7 @@ class Simulation:
             percentage_of_captured_fields = maximum / (self.__board_x * self.__board_y)
             logger.critical(iteration_stats)
             # logger.critical(iteration_stats.keys())
-            
+
             if percentage_of_captured_fields > self.__end_condition:
                 winner = max(iteration_stats, key=iteration_stats.get)
                 logger.critical(f"ITERATION: {iteration} WINNER: {winner}")
@@ -82,7 +82,6 @@ class Simulation:
         board_state.join()
         simulation_thread.join()
         visualization_thread.join()
-
 
 
 if __name__ == "__main__":
