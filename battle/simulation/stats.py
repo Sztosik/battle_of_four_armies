@@ -1,5 +1,5 @@
 import csv
-import battle.simulation.config as config
+
 
 def get_rows(stats_list: list[dict]):
     for stats_dict in stats_list:

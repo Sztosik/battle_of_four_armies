@@ -1,12 +1,36 @@
 from tkinter import *
 from tkinter import messagebox
 import json
+from battle.simulation.simulation import Simulation
+import sys
 
 def popup():
-    response = messagebox.showinfo("Input Error", "Use only int numbers and fill all fields")
+    messagebox.showinfo("Input Error", "Use only int numbers and fill all fields")
 
 def run_default():
-    app.destroy()
+    try:
+        data = {
+            "yellow_base_units": 20,
+            "yellow_special_units": 5,
+            "red_base_units": 20,
+            "red_special_units": 5,
+            "blue_base_units": 20,
+            "blue_special_units": 5,
+            "green_base_units": 20,
+            "green_special_units": 5,
+            "board_x": 50,
+            "board_y": 50,
+            "delay": 10
+        }
+        with open("init_data.json", "w") as outfile: 
+            json.dump(data, outfile, indent=2)
+        app.destroy()
+        Symulacja = Simulation()
+        Symulacja.run()
+        sys.exit()
+    except:
+        popup()
+
 
 def callback():
     try:
@@ -24,8 +48,11 @@ def callback():
             "delay": int(frames_delay.get())
         }
         with open("init_data.json", "w") as outfile: 
-            json.dump(data, outfile)
+            json.dump(data, outfile, indent=2)
         app.destroy()
+        Symulacja = Simulation()
+        Symulacja.run()
+        sys.exit()
     except:
         popup()
 
@@ -111,6 +138,6 @@ MyButton2 = Button(app, text="Run default", width=15, command=run_default)
 MyButton2.grid(row=6, column=3)
 
 app.title('Initialization')
-app.geometry('750x400')
+app.geometry('900x400')
 
 app.mainloop()
