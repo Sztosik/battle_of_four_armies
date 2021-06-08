@@ -31,11 +31,31 @@ class Army:
                 fraction=self.fraction, pos=self.__start_point, board=board
             )
             self.__unit_list.append(new_unit)
-
-        # TODO
+            
         if self.fraction == "Red":
             for _ in range(self.__init_number_of_special_units):
                 new_special_unit: SpecialUnitA = SpecialUnitA(
+                    fraction=self.fraction, pos=self.__start_point, board=board
+                )
+                self.__unit_list.append(new_special_unit)
+        
+        elif self.fraction == "Yellow":
+            for _ in range(self.__init_number_of_special_units):
+                new_special_unit: SpecialUnitC = SpecialUnitC(
+                    fraction=self.fraction, pos=self.__start_point, board=board
+                )
+                self.__unit_list.append(new_special_unit)
+        
+        elif self.fraction == "Blue":
+            for _ in range(self.__init_number_of_special_units):
+                new_special_unit: SpecialUnitD = SpecialUnitD(
+                    fraction=self.fraction, pos=self.__start_point, board=board
+                )
+                self.__unit_list.append(new_special_unit)
+        
+        elif self.fraction == "Green":
+            for _ in range(self.__init_number_of_special_units):
+                new_special_unit: SpecialUnitB = SpecialUnitB(
                     fraction=self.fraction, pos=self.__start_point, board=board
                 )
                 self.__unit_list.append(new_special_unit)
