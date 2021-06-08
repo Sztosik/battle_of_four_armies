@@ -1,4 +1,5 @@
 import sys
+import time
 from queue import Queue
 
 import pygame
@@ -38,7 +39,7 @@ def main_visualization(board_queue: Queue, board_x: int, board_y: int) -> None:
     pygame.display.set_caption("Visualization")
     screen.fill(consts.WHITE)
 
-    while True:
+    while not board_queue.empty():
         board = board_queue.get()
         board_data = get_board_data(board)
 
@@ -50,6 +51,13 @@ def main_visualization(board_queue: Queue, board_x: int, board_y: int) -> None:
 
         pygame.display.update()
         pygame.time.delay(config.SINGLE_FRAME_DURATION)
+
+    while True:
+        time.sleep(1)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
 
 def draw_grid(itr_fields_data: list[BoardData], screen) -> None:
