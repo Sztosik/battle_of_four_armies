@@ -47,8 +47,10 @@ class Army:
         for unit in self.__unit_list:
             unit.move(board)
 
-    def count_base_units(self):
-        """Liczy żywe jednostki podstawowe."""
-
-    def count_special_units(self):
-        """Liczy żywe jednostki specjalne."""
+    def count_units(self) -> int:
+        """Liczy żywe jednostki."""
+        counter = 0
+        for unit in self.__unit_list:
+            if unit.is_alive():
+                counter += 1
+        return counter

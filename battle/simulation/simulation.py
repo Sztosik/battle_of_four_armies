@@ -24,16 +24,16 @@ class Simulation:
         self.__board_x: int = 50
         self.__board_y: int = 50
         self.board: Board = Board(self.__board_x, self.__board_y)
-        self.__end_condition = 0.5
+        self.__end_condition = 0.6
         self.stats = Stast()
 
-        new_army = Army("Red", 0, 80, config.POS_RED, self.board)
+        new_army = Army("Red", 0, 50, config.POS_RED, self.board)
         self.__armies.append(new_army)
-        new_army = Army("Green", 80, 7, config.POS_GREEN, self.board)
+        new_army = Army("Green", 50, 7, config.POS_GREEN, self.board)
         self.__armies.append(new_army)
-        new_army = Army("Blue", 80, 7, config.POS_BLUE, self.board)
+        new_army = Army("Blue", 50, 7, config.POS_BLUE, self.board)
         self.__armies.append(new_army)
-        new_army = Army("Yellow", 80, 7, config.POS_YELLOW, self.board)
+        new_army = Army("Yellow", 50, 7, config.POS_YELLOW, self.board)
         self.__armies.append(new_army)
 
     def sim_thread(self, board_state: Queue):
@@ -43,20 +43,22 @@ class Simulation:
         while True:
             iteration += 1
             logger.info("iteration number = %s", iteration)
+            
+            units_stats: dict = dict()
 
             for army in self.__armies:
                 army.start(self.board)
+                units_stats[army.fraction] = army.count_units()
 
             current_board_state = copy.copy(self.board)
             board_state.put(current_board_state)
             time.sleep(config.SINGLE_FRAME_DURATION / 1000)
 
             iteration_stats = self.board.captured_fields()
-            self.stats.add_row(iteration_stats)
+            self.stats.add_row(iteration_stats, units_stats)
             maximum = max(iteration_stats.values())
             percentage_of_captured_fields = maximum / (self.__board_x * self.__board_y)
             logger.critical(iteration_stats)
-            # logger.critical(iteration_stats.keys())
 
             if percentage_of_captured_fields > self.__end_condition:
                 winner = max(iteration_stats, key=iteration_stats.get)
@@ -73,7 +75,7 @@ class Simulation:
         )
         visualization_thread = threading.Thread(
             target=main_visualization,
-            args=(board_state, self.__board_x, self.__board_y),
+            args=(board_state, self.__board_x, self.__board_y)
         )
 
         simulation_thread.start()
@@ -87,3 +89,4 @@ class Simulation:
 if __name__ == "__main__":
     Symulacja = Simulation()
     Symulacja.run()
+    sys.exit()
