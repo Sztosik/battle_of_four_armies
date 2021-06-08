@@ -1,5 +1,5 @@
 import csv
-
+import battle.simulation.config as config
 
 def get_rows(stats_list: list[dict]):
     for stats_dict in stats_list:
@@ -17,8 +17,9 @@ class Stast:
         self.__units_stats: list[dict] = []
         self.__captured_fields_stats: list[dict] = []
 
-    def add_row(self, captured_fields_row: dict):
-        # self.__units_stats.append(units_row)
+
+    def add_row(self, captured_fields_row: dict, units_row: dict):
+        self.__units_stats.append(units_row)
         self.__captured_fields_stats.append(captured_fields_row)
 
     def save_to_csv(self):
@@ -28,5 +29,14 @@ class Stast:
             csv_writer.writeheader()
             for row in get_rows(self.__captured_fields_stats):
                 csv_writer.writerow(row)
-                # print(row)
+
         print("Stats saved into captured_fields_stats.csv")
+
+        with open("units_stats.csv", "w") as file:
+            fieldnames = get_header(self.__units_stats)
+            csv_writer = csv.DictWriter(file, delimiter=",", fieldnames=fieldnames)
+            csv_writer.writeheader()
+            for row in get_rows(self.__units_stats):
+                csv_writer.writerow(row)
+
+        print("Stats saved into units_stats.csv")

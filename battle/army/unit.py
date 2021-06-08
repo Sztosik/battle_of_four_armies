@@ -116,6 +116,12 @@ class Unit(ABC):
         """
         return self.__health_points
 
+    def is_alive(self) -> bool:
+        """
+        Zwraca punkty życia jednostki
+        """
+        return self.__is_alive
+
 
 class BaseUnit(Unit):
     """Podstawowa jednstka. Identyczna dla wszystkich armii."""
