@@ -143,11 +143,11 @@ class SpecialUnitA(Unit):
         enemies: list[Unit] = board.board_fields[pos.y][pos.x].get_units()
         for enemy in enemies:
             enemy.get_damage(self.get_strength() + defense_modifier)
-            logger.critical("JEDNOSTKA SPECJALNA A - SIŁA: %d" % self.get_strength())
+            logger.debug("JEDNOSTKA SPECJALNA A - SIŁA: %d" % self.get_strength())
             if enemy.get_hp() <= 0:
                 board.board_fields[pos.y][pos.x].remove_unit(enemy)
                 enemy.just_die()
-                logger.critical("Poległem :(")
+                logger.debug("Poległem :(")
 
 
 # TODO
