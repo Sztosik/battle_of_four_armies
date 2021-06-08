@@ -20,7 +20,8 @@ def run_default():
             "green_special_units": 5,
             "board_x": 50,
             "board_y": 50,
-            "delay": 10
+            "delay": 10,
+            "percentage": 60
         }
         with open("init_data.json", "w") as outfile: 
             json.dump(data, outfile, indent=2)
@@ -45,7 +46,8 @@ def callback():
             "green_special_units": int(green_special_units.get()),
             "board_x": int(board_width.get()),
             "board_y": int(board_height.get()),
-            "delay": int(frames_delay.get())
+            "delay": int(frames_delay.get()),
+            "percentage": int(percentage.get())
         }
         with open("init_data.json", "w") as outfile: 
             json.dump(data, outfile, indent=2)
@@ -69,6 +71,7 @@ green_special_units = StringVar()
 board_width = StringVar()
 board_height = StringVar()
 frames_delay = StringVar()
+percentage = StringVar()
 
 #Board size X
 part_label = Label(app, text='Board Size X:', font = ('bold', 12), pady=20, padx = 20)
@@ -131,13 +134,19 @@ part_label.grid(row=6, column=0, sticky=W)
 part_entry = Entry(app, textvariable=frames_delay)
 part_entry.grid(row=6, column=1)
 
+#Percentage
+part_label = Label(app, text='How many fields to stop (%): ', font = ('bold', 12), pady=20, padx = 20)
+part_label.grid(row=6, column=2, sticky=W)
+part_entry = Entry(app, textvariable=percentage)
+part_entry.grid(row=6, column=3)
+
 MyButton1 = Button(app, text="Submit and run", width=15, command=callback)
-MyButton1.grid(row=6, column=2)
+MyButton1.grid(row=7, column=1)
 
 MyButton2 = Button(app, text="Run default", width=15, command=run_default)
-MyButton2.grid(row=6, column=3)
+MyButton2.grid(row=7, column=2)
 
 app.title('Initialization')
-app.geometry('900x400')
+app.geometry('900x420')
 
 app.mainloop()
