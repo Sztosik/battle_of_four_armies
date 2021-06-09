@@ -1,12 +1,37 @@
 import json
 import sys
+from queue import Queue
 from tkinter import Button, Entry, Label, StringVar, Tk, W, messagebox
+import threading
 
 from battle.simulation.simulation import Simulation
+from battle.visualization.visualization import main_visualization
 
 
 def popup():
     messagebox.showinfo("Input Error", "Use only int numbers and fill all fields")
+
+
+def run_battle():
+    simulation = Simulation()
+
+    board_state = Queue()
+
+    simulation_thread = threading.Thread(
+        target=simulation.sim_thread, args=(board_state,)
+    )
+    visualization_thread = threading.Thread(
+        target=main_visualization, args=(board_state,)
+    )
+
+    simulation_thread.start()
+    visualization_thread.start()
+
+    board_state.join()
+    simulation_thread.join()
+    visualization_thread.join()
+
+    sys.exit()
 
 
 def run_default():
@@ -27,9 +52,7 @@ def run_default():
     with open("init_data.json", "w") as outfile:
         json.dump(data, outfile, indent=2)
     app.destroy()
-    Symulacja = Simulation()
-    Symulacja.run()
-    sys.exit()
+    run_battle()
 
 
 def callback():
@@ -51,9 +74,7 @@ def callback():
         with open("init_data.json", "w") as outfile:
             json.dump(data, outfile, indent=2)
         app.destroy()
-        Symulacja = Simulation()
-        Symulacja.run()
-        sys.exit()
+        run_battle()
     except:
         popup()
 

@@ -103,23 +103,6 @@ class Simulation:
                 break
         sys.exit()
 
-    def run(self):
-        board_state = Queue()
-
-        simulation_thread = threading.Thread(
-            target=self.sim_thread, args=(board_state,)
-        )
-        visualization_thread = threading.Thread(
-            target=main_visualization,
-            args=(board_state, self.__board_x, self.__board_y),
-        )
-
-        simulation_thread.start()
-        visualization_thread.start()
-
-        board_state.join()
-        simulation_thread.join()
-        visualization_thread.join()
 
 
 if __name__ == "__main__":

@@ -8,7 +8,6 @@ import battle.visualization.consts as consts
 from battle.board.board import Board
 from battle.simulation.sim_context import BoardData
 
-# TODO: Zrobić z tego klasę
 
 
 def get_board_data(board: Board) -> list[BoardData]:
@@ -30,10 +29,18 @@ def get_board_data(board: Board) -> list[BoardData]:
     return board_data
 
 
-def main_visualization(board_queue: Queue, board_x: int, board_y: int) -> None:
+def main_visualization(board_queue: Queue) -> None:
     pygame.init()
+
+    board: Board
+    while True:
+        if not board_queue.empty():
+            board = board_queue.get()
+            break
+
+    board_size = board.get_board_size()
     screen = pygame.display.set_mode(
-        (board_x * consts.BLOCK_SIZE, board_y * consts.BLOCK_SIZE)
+        (board_size.y * consts.BLOCK_SIZE, board_size.y * consts.BLOCK_SIZE)
     )
     pygame.display.set_caption("Visualization")
     screen.fill(consts.WHITE)
