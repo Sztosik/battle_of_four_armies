@@ -8,8 +8,8 @@ from queue import Queue
 import battle.simulation.config as config
 from battle.army.army import Army
 from battle.board.board import Board
+from battle.simulation.sim_context import Position
 from battle.simulation.stats import Stast
-
 
 logging.basicConfig(level=config.LOGGING_LEVEL)
 logger = logging.getLogger(__name__)
@@ -31,18 +31,41 @@ class Simulation:
 
             config.SINGLE_FRAME_DURATION = init_data["delay"]
 
-            new_army = Army("Red", init_data["red_base_units"], init_data["red_special_units"], config.POS_RED, self.board)
+            new_army = Army(
+                "Red",
+                init_data["red_base_units"],
+                init_data["red_special_units"],
+                Position(0, 0),
+                self.board,
+            )
             self.__armies.append(new_army)
 
-            new_army = Army("Green", init_data["green_base_units"], init_data["green_special_units"], config.POS_GREEN, self.board)
+            new_army = Army(
+                "Green",
+                init_data["green_base_units"],
+                init_data["green_special_units"],
+                Position(self.__board_x - 1, 0),
+                self.board,
+            )
             self.__armies.append(new_army)
 
-            new_army = Army("Blue", init_data["blue_base_units"], init_data["blue_special_units"], config.POS_BLUE, self.board)
+            new_army = Army(
+                "Blue",
+                init_data["blue_base_units"],
+                init_data["blue_special_units"],
+                Position(0, self.__board_y - 1),
+                self.board,
+            )
             self.__armies.append(new_army)
 
-            new_army = Army("Yellow", init_data["yellow_base_units"], init_data["yellow_special_units"], config.POS_YELLOW, self.board)
+            new_army = Army(
+                "Yellow",
+                init_data["yellow_base_units"],
+                init_data["yellow_special_units"],
+                Position(self.__board_x - 1, self.__board_y - 1),
+                self.board,
+            )
             self.__armies.append(new_army)
-
 
     def send_data(self, units_stats):
         """Przekazuje dane do ststystyk."""
@@ -50,9 +73,8 @@ class Simulation:
         iteration_stats = self.board.captured_fields()
         self.stats.add_row(iteration_stats, units_stats)
 
-
     def sim_end(self) -> bool:
-        """"Sprawdza czy został spełniony warunek końca symulacji."""
+        """ "Sprawdza czy został spełniony warunek końca symulacji."""
 
         iteration_stats = self.board.captured_fields()
         maximum = max(iteration_stats.values())
@@ -61,13 +83,10 @@ class Simulation:
         ) * 100
 
         if percentage_of_captured_fields > self.__end_condition:
-            winner = {
-                key for key, value in iteration_stats.items() if value == maximum
-            }
+            winner = {key for key, value in iteration_stats.items() if value == maximum}
             logger.critical(f"WINNER: {winner}")
             return True
         return False
-
 
     def sim_thread(self, board_state: Queue):
         """Rozpoczyna symulacje."""
@@ -98,7 +117,6 @@ class Simulation:
             time.sleep(config.SINGLE_FRAME_DURATION / 1000)
 
         sys.exit()
-
 
 
 if __name__ == "__main__":

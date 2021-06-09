@@ -1,8 +1,8 @@
 import json
 import sys
+import threading
 from queue import Queue
 from tkinter import Button, Entry, Label, StringVar, Tk, W, messagebox
-import threading
 
 from battle.simulation.simulation import Simulation
 from battle.visualization.visualization import main_visualization
@@ -13,6 +13,7 @@ def popup():
 
 
 def run_battle():
+    """Uruchamia symulację oraz wizualizację"""
     simulation = Simulation()
     board_state = Queue()
 
@@ -46,8 +47,8 @@ def run_default():
         "green_special_units": 5,
         "board_x": 50,
         "board_y": 50,
-        "delay": 1,
-        "percentage": 30,
+        "delay": 30,
+        "percentage": 50,
     }
     with open("init_data.json", "w") as outfile:
         json.dump(data, outfile, indent=2)

@@ -1,13 +1,13 @@
 import sys
+import time
 from queue import Queue
 
 import pygame
-import time
+
 import battle.simulation.config as config
 import battle.visualization.consts as consts
 from battle.board.board import Board
 from battle.simulation.sim_context import BoardData
-
 
 
 def get_board_data(board: Board) -> list[BoardData]:
@@ -63,12 +63,12 @@ def main_visualization(board_queue: Queue) -> None:
 
     while True:
         print("Symulacja zakończona")
-        
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-                
+
         pygame.time.delay(1000)
 
 

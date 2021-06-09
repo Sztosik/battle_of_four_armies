@@ -58,7 +58,7 @@ class Board:
         for y in range(self.__board_y):
             for x in range(self.__board_x):
                 yield self.board_fields[y][x]
-    
+
     def get_board_size(self) -> Position:
         """Zwraca wymiary planszy"""
         return Position(self.__board_x, self.__board_y)
