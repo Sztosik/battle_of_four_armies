@@ -8,7 +8,6 @@ def popup():
     messagebox.showinfo("Input Error", "Use only int numbers and fill all fields")
 
 def run_default():
-    try:
         data = {
             "yellow_base_units": 20,
             "yellow_special_units": 5,
@@ -29,8 +28,7 @@ def run_default():
         Symulacja = Simulation()
         Symulacja.run()
         sys.exit()
-    except:
-        popup()
+    
 
 
 def callback():
