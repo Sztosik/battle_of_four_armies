@@ -1,5 +1,4 @@
 import sys
-import time
 from queue import Queue
 
 import pygame

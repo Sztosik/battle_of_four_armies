@@ -17,7 +17,6 @@ class Stast:
         self.__units_stats: list[dict] = []
         self.__captured_fields_stats: list[dict] = []
 
-
     def add_row(self, captured_fields_row: dict, units_row: dict):
         self.__units_stats.append(units_row)
         self.__captured_fields_stats.append(captured_fields_row)

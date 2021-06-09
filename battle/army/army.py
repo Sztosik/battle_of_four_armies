@@ -1,4 +1,11 @@
-from battle.army.unit import BaseUnit, SpecialUnitA, SpecialUnitB, SpecialUnitC, SpecialUnitD, Unit
+from battle.army.unit import (
+    BaseUnit,
+    SpecialUnitA,
+    SpecialUnitB,
+    SpecialUnitC,
+    SpecialUnitD,
+    Unit,
+)
 from battle.board.board import Board
 from battle.simulation.sim_context import Position
 
@@ -31,34 +38,34 @@ class Army:
                 fraction=self.fraction, pos=self.__start_point, board=board
             )
             self.__unit_list.append(new_unit)
-            
+
         if self.fraction == "Red":
             for _ in range(self.__init_number_of_special_units):
-                new_special_unit: SpecialUnitA = SpecialUnitA(
+                new_special_unit_a: SpecialUnitA = SpecialUnitA(
                     fraction=self.fraction, pos=self.__start_point, board=board
                 )
-                self.__unit_list.append(new_special_unit)
-        
+                self.__unit_list.append(new_special_unit_a)
+
         elif self.fraction == "Yellow":
             for _ in range(self.__init_number_of_special_units):
-                new_special_unit: SpecialUnitC = SpecialUnitC(
+                new_special_unit_c: SpecialUnitC = SpecialUnitC(
                     fraction=self.fraction, pos=self.__start_point, board=board
                 )
-                self.__unit_list.append(new_special_unit)
-        
+                self.__unit_list.append(new_special_unit_c)
+
         elif self.fraction == "Blue":
             for _ in range(self.__init_number_of_special_units):
-                new_special_unit: SpecialUnitD = SpecialUnitD(
+                new_special_unit_d: SpecialUnitD = SpecialUnitD(
                     fraction=self.fraction, pos=self.__start_point, board=board
                 )
-                self.__unit_list.append(new_special_unit)
-        
+                self.__unit_list.append(new_special_unit_d)
+
         elif self.fraction == "Green":
             for _ in range(self.__init_number_of_special_units):
-                new_special_unit: SpecialUnitB = SpecialUnitB(
+                new_special_unit_b: SpecialUnitB = SpecialUnitB(
                     fraction=self.fraction, pos=self.__start_point, board=board
                 )
-                self.__unit_list.append(new_special_unit)
+                self.__unit_list.append(new_special_unit_b)
 
     def start(self, board: Board) -> None:
         """

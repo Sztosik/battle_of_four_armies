@@ -30,19 +30,19 @@ class Unit(ABC):
         self.__is_alive = True
         # przejmuje pole na którym się respi
         self.capture_the_field(board, pos)
-    
+
     def change_health_points(self, value: int) -> None:
         """Zmienia ilosc punktów życia jednostki"""
         self.__health_points = value
-    
+
     def change_strength(self, value: int) -> None:
         """Zmienia siłę jednostki"""
         self.__strength = value
-    
+
     def change_movement_points(self, value: int) -> None:
         """Zmienia ilość punktów ruchu jednostki"""
         self.__movement_points = value
-    
+
     def move(self, board: Board) -> None:
         """
         Sprawdza czy jednostka jest jeczsze żywa i czy ma punkty ruchu.
@@ -65,7 +65,7 @@ class Unit(ABC):
                 # pole jest puste, albo stoi na nim sojusznik
                 if move == 1:
                     logger.debug(
-                        "pole które chce zwolnić: %d, %d" % (self.__pos.x, self.__pos.y)
+                        f"pole które chce zwolnić: ({self.__pos.x}, {self.__pos.y})"
                     )
                     # usuwa jednostkę z pola na którym stoi aktualnie
                     board.board_fields[self.__pos.y][self.__pos.x].remove_unit(self)
@@ -80,18 +80,17 @@ class Unit(ABC):
     def get_fraction(self) -> str:
         """Zwraca frakcje jednostki"""
         return self.__fraction
-    
+
     def capture_the_field(self, board: Board, pos: Position) -> None:
         """
         Zmienia przynależność pola do frakcji.
         Dodaje siebie do listy jednostek znajdujących się na nowym polu
         """
 
-        logger.debug("Przejmuje pole %d, %d" % (pos.x, pos.y))
+        logger.debug(f"Przejmuje pole ({pos.x}, {pos.y})")
         board.board_fields[pos.y][pos.x].change_fraction(self.__fraction)
         # przekazuje wskaźnik na obecnie aktywny obiekt jednostki
         board.board_fields[pos.y][pos.x].add_unit(self)
-        
 
     def fight(self, board: Board, pos: Position) -> None:
         """
@@ -145,7 +144,7 @@ class BaseUnit(Unit):
 
     def __init__(self, fraction: str, pos: Position, board: Board) -> None:
         super().__init__(fraction=fraction, pos=pos, board=board)
-        
+
 
 class SpecialUnitA(Unit):
     """Silniejsza i bardziej wytrzymala, walczy z kilkoma jednostkami."""
@@ -154,8 +153,6 @@ class SpecialUnitA(Unit):
         super().__init__(fraction=fraction, pos=pos, board=board)
         self.change_health_points(config.SPECIAL_UNIT_HP)
         self.change_strength(config.SPECIAL_UNIT_STRENGTH)
-        
-        
 
     def fight(self, board: Board, pos: Position) -> None:
         """
@@ -166,7 +163,6 @@ class SpecialUnitA(Unit):
         enemies: list[Unit] = board.board_fields[pos.y][pos.x].get_units()
         for enemy in enemies:
             enemy.get_damage(self.get_strength() + defense_modifier)
-            logger.debug("JEDNOSTKA SPECJALNA A - SIŁA: %d" % self.get_strength())
             if enemy.get_hp() <= 0:
                 board.board_fields[pos.y][pos.x].remove_unit(enemy)
                 enemy.just_die()
@@ -190,7 +186,7 @@ class SpecialUnitC(Unit):
     def capture_the_field(self, board: Board, pos: Position) -> None:
         """
         Zmienia przynależność pola do frakcji.
-        Dodaje siebie do listy jednostek znajdujących się na nowym polu. 
+        Dodaje siebie do listy jednostek znajdujących się na nowym polu.
         """
 
         def takeover_from_a_distance(self, board: Board, pos: Position):
@@ -218,26 +214,26 @@ class SpecialUnitC(Unit):
                         target_pos.x - 1 + value2, target_pos.y - 1 + value
                     )
                     if board.is_it_free(target_pos2, self.get_fraction()) == 1:
-                        board.board_fields[target_pos2.y][target_pos2.x].change_fraction(
-                            self.get_fraction()
-                        )
+                        board.board_fields[target_pos2.y][
+                            target_pos2.x
+                        ].change_fraction(self.get_fraction())
 
-        logger.debug("Przejmuje pole %d, %d" % (pos.x, pos.y))
+        logger.debug(f"Przejmuje pole ({pos.x}, {pos.y})")
         board.board_fields[pos.y][pos.x].change_fraction(self.get_fraction())
         # przekazuje wskaźnik na obecnie aktywny obiekt jednostki
         board.board_fields[pos.y][pos.x].add_unit(self)
         takeover_from_a_distance(self, board, pos)
 
-    
 
 class SpecialUnitD(Unit):
     """Jednostka przejmująca kilka pól obok swojej pozycji"""
+
     def __init__(self, fraction, pos, board) -> None:
         super().__init__(fraction=fraction, pos=pos, board=board)
-    
+
     def capture_the_field(self, board: Board, pos: Position) -> None:
         def capture_more_fields(self, board: Board, pos: Position) -> None:
-            """ 
+            """
             przejmuje wszystkie pola z ktorymi sasiaduje i są wolne : np x=2, y=2 przejmuje:
             (1,1)(2,1)(3,1)
             (1,2)[2,2](3,2)
@@ -246,20 +242,13 @@ class SpecialUnitD(Unit):
             for value in range(3):
                 for value2 in range(3):
                     target_pos = Position(pos.y - 1 + value2, pos.x - 1 + value)
-                    if (
-                        board.is_it_free(
-                            target_pos, self.get_fraction()
+                    if board.is_it_free(target_pos, self.get_fraction()) == 1:
+                        board.board_fields[target_pos.x][target_pos.y].change_fraction(
+                            self.get_fraction()
                         )
-                        == 1
-                    ):
-                        board.board_fields[target_pos.x][
-                            target_pos.y
-                        ].change_fraction(self.get_fraction())
-        
-        logger.debug("Przejmuje pole %d, %d" % (pos.x, pos.y))
+
+        logger.debug(f"Przejmuje pole ({pos.x}, {pos.y})")
         board.board_fields[pos.y][pos.x].change_fraction(self.get_fraction())
         # przekazuje wskaźnik na obecnie aktywny obiekt jednostki
         board.board_fields[pos.y][pos.x].add_unit(self)
         capture_more_fields(self, board, pos)
-    
-    
