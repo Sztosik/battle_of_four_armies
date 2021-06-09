@@ -1,4 +1,5 @@
 import sys
+import time
 from queue import Queue
 
 import pygame
@@ -7,8 +8,6 @@ import battle.simulation.config as config
 import battle.visualization.consts as consts
 from battle.board.board import Board
 from battle.simulation.sim_context import BoardData
-
-# TODO: Zrobić z tego klasę
 
 
 def get_board_data(board: Board) -> list[BoardData]:
@@ -30,16 +29,27 @@ def get_board_data(board: Board) -> list[BoardData]:
     return board_data
 
 
-def main_visualization(board_queue: Queue, board_x: int, board_y: int) -> None:
+def main_visualization(board_queue: Queue) -> None:
     pygame.init()
+
+    # czeka na pierwszy element kolejki
+    board: Board
+    while True:
+        if not board_queue.empty():
+            board = board_queue.get()
+            break
+
+    board_size = board.get_board_size()
     screen = pygame.display.set_mode(
-        (board_x * consts.BLOCK_SIZE, board_y * consts.BLOCK_SIZE)
+        (board_size.y * consts.BLOCK_SIZE, board_size.y * consts.BLOCK_SIZE)
     )
     pygame.display.set_caption("Visualization")
     screen.fill(consts.WHITE)
 
     while True:
         board = board_queue.get()
+        if board.end == True:
+            break
         board_data = get_board_data(board)
 
         draw_grid(board_data, screen)
@@ -50,6 +60,16 @@ def main_visualization(board_queue: Queue, board_x: int, board_y: int) -> None:
 
         pygame.display.update()
         pygame.time.delay(config.SINGLE_FRAME_DURATION)
+
+    while True:
+        print("Symulacja zakończona")
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        pygame.time.delay(1000)
 
 
 def draw_grid(itr_fields_data: list[BoardData], screen) -> None:
