@@ -1,20 +1,14 @@
-# PO-Project
-
-## TO DO
-1. Naprawić jednostki specjalne
-2. Zrobić system zbierania i zapisu danych
-3. GUI do sprowadzania parametrów symulacji
-
+# The Battle of the Four Armies 
 
 ## Setup
 
 ```
 $ git clone https://github.com/Sztosik/PO-Project.git
 $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
-$ cd PO-Project
+$ cd battle_of_four_armies
 $ poetry shell
 $ poetry install
-$ python -m battle.simulation.simulation
+$ python -m battle.simulation.init_window
 ```
 
 ## Scripts

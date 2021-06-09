@@ -16,6 +16,7 @@ class Board:
         self.board_fields: list[list[Field]] = []
         self.__board_x = board_x
         self.__board_y = board_y
+        self.end = False
         self.generate_board()
 
     def generate_board(self):

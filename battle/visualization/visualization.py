@@ -2,7 +2,7 @@ import sys
 from queue import Queue
 
 import pygame
-
+import time
 import battle.simulation.config as config
 import battle.visualization.consts as consts
 from battle.board.board import Board
@@ -32,6 +32,7 @@ def get_board_data(board: Board) -> list[BoardData]:
 def main_visualization(board_queue: Queue) -> None:
     pygame.init()
 
+    # czeka na pierwszy element kolejki
     board: Board
     while True:
         if not board_queue.empty():
@@ -47,6 +48,8 @@ def main_visualization(board_queue: Queue) -> None:
 
     while True:
         board = board_queue.get()
+        if board.end == True:
+            break
         board_data = get_board_data(board)
 
         draw_grid(board_data, screen)
@@ -57,6 +60,16 @@ def main_visualization(board_queue: Queue) -> None:
 
         pygame.display.update()
         pygame.time.delay(config.SINGLE_FRAME_DURATION)
+
+    while True:
+        print("Symulacja zakończona")
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                
+        pygame.time.delay(1000)
 
 
 def draw_grid(itr_fields_data: list[BoardData], screen) -> None:
