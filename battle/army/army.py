@@ -1,4 +1,4 @@
-from battle.army.unit import BaseUnit, SpecialUnitA, Unit
+from battle.army.unit import BaseUnit, SpecialUnitA, SpecialUnitB, SpecialUnitC, SpecialUnitD, Unit
 from battle.board.board import Board
 from battle.simulation.sim_context import Position
 
