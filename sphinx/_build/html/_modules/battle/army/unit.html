@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>battle.army.unit &#8212; The Battle of the Four Armies 1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for battle.army.unit</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
+
+<span class="kn">import</span> <span class="nn">battle.simulation.config</span> <span class="k">as</span> <span class="nn">config</span>
+<span class="kn">from</span> <span class="nn">battle.board.board</span> <span class="kn">import</span> <span class="n">Board</span>
+<span class="kn">from</span> <span class="nn">battle.simulation.sim_context</span> <span class="kn">import</span> <span class="n">Position</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_LEVEL</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Unit"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit">[docs]</a><span class="k">class</span> <span class="nc">Unit</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Abstrakcyjna klasa jednostki&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fraction</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">pos</span><span class="p">:</span> <span class="n">Position</span><span class="p">,</span>
+        <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">,</span>
+        <span class="n">health_points</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">BASE_UNIT_HP</span><span class="p">,</span>
+        <span class="n">strength</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">BASE_UNIT_STRENGTH</span><span class="p">,</span>
+        <span class="n">movement_points</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">BASE_UNIT_MOVEMENT_POINTS</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__fraction</span> <span class="o">=</span> <span class="n">fraction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__health_points</span> <span class="o">=</span> <span class="n">health_points</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__strength</span> <span class="o">=</span> <span class="n">strength</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__movement_points</span> <span class="o">=</span> <span class="n">movement_points</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__pos</span> <span class="o">=</span> <span class="n">pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__is_alive</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># przejmuje pole na którym się respi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">capture_the_field</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Unit.change_health_points"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit.change_health_points">[docs]</a>    <span class="k">def</span> <span class="nf">change_health_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Zmienia ilosc punktów życia jednostki&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__health_points</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Unit.change_strength"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit.change_strength">[docs]</a>    <span class="k">def</span> <span class="nf">change_strength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Zmienia siłę jednostki&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__strength</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Unit.change_movement_points"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit.change_movement_points">[docs]</a>    <span class="k">def</span> <span class="nf">change_movement_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Zmienia ilość punktów ruchu jednostki&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__movement_points</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Unit.move"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit.move">[docs]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sprawdza czy jednostka jest jeczsze żywa i czy ma punkty ruchu.</span>
+<span class="sd">        Lusuje pole i sprawdza jego status i podejmuje decyzje o dalszych działaniach</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tura jednostki: </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;frakcja jednostki: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fraction</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_alive</span><span class="p">:</span>
+            <span class="n">movement</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__movement_points</span>
+
+            <span class="k">while</span> <span class="n">movement</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">rand_x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">rand_y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+                <span class="n">new_pos</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">rand_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pos</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">rand_y</span><span class="p">)</span>
+
+                <span class="n">move</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="n">is_it_free</span><span class="p">(</span><span class="n">new_pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fraction</span><span class="p">)</span>
+                <span class="c1"># pole jest puste, albo stoi na nim sojusznik</span>
+                <span class="k">if</span> <span class="n">move</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;pole które chce zwolnić: (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__pos</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__pos</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s2">)&quot;</span>
+                    <span class="p">)</span>
+                    <span class="c1"># usuwa jednostkę z pola na którym stoi aktualnie</span>
+                    <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">__pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">remove_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__pos</span> <span class="o">=</span> <span class="n">new_pos</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">capture_the_field</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">new_pos</span><span class="p">)</span>
+                    <span class="n">movement</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="c1"># na polu stoi co najmniej jedna wroga jednostka</span>
+                <span class="k">if</span> <span class="n">move</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fight</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">new_pos</span><span class="p">)</span>
+                    <span class="n">movement</span> <span class="o">-=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Unit.get_fraction"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit.get_fraction">[docs]</a>    <span class="k">def</span> <span class="nf">get_fraction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Zwraca frakcje jednostki&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fraction</span></div>
+
+<div class="viewcode-block" id="Unit.capture_the_field"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit.capture_the_field">[docs]</a>    <span class="k">def</span> <span class="nf">capture_the_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Zmienia przynależność pola do frakcji.</span>
+<span class="sd">        Dodaje siebie do listy jednostek znajdujących się na nowym polu</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Przejmuje pole (</span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">change_fraction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__fraction</span><span class="p">)</span>
+        <span class="c1"># przekazuje wskaźnik na obecnie aktywny obiekt jednostki</span>
+        <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Unit.fight"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit.fight">[docs]</a>    <span class="k">def</span> <span class="nf">fight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Wywołuje metodę get_damage na pierwszym obiekcie</span>
+<span class="sd">        z listy obiektów znajdujących się na polu.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">defense_modifier</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">get_defense_modifier</span><span class="p">()</span>
+        <span class="n">enemy</span><span class="p">:</span> <span class="n">Unit</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">get_units</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">get_damage</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_strength</span><span class="p">()</span> <span class="o">+</span> <span class="n">defense_modifier</span>
+        <span class="p">)</span>  <span class="c1"># zwiększa lub zmniejsza silę bazową o 10</span>
+        <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">get_hp</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">remove_unit</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">just_die</span><span class="p">()</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Poległem :(&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Unit.get_damage"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit.get_damage">[docs]</a>    <span class="k">def</span> <span class="nf">get_damage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">damage</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Zmienia stan punktów życia</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__health_points</span> <span class="o">-=</span> <span class="n">damage</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Jestem atakowany, moje HP: </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__health_points</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Unit.get_strength"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit.get_strength">[docs]</a>    <span class="k">def</span> <span class="nf">get_strength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Zwraca punkty siły obiektu</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__strength</span></div>
+
+<div class="viewcode-block" id="Unit.just_die"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit.just_die">[docs]</a>    <span class="k">def</span> <span class="nf">just_die</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Zmienia stan jednostki na martwy</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__is_alive</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Unit.get_hp"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit.get_hp">[docs]</a>    <span class="k">def</span> <span class="nf">get_hp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Zwraca punkty życia jednostki</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__health_points</span></div>
+
+<div class="viewcode-block" id="Unit.is_alive"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.Unit.is_alive">[docs]</a>    <span class="k">def</span> <span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Zwraca punkty życia jednostki</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_alive</span></div></div>
+
+
+<div class="viewcode-block" id="BaseUnit"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.BaseUnit">[docs]</a><span class="k">class</span> <span class="nc">BaseUnit</span><span class="p">(</span><span class="n">Unit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Podstawowa jednstka. Identyczna dla wszystkich armii.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fraction</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Position</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="n">fraction</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">board</span><span class="o">=</span><span class="n">board</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SpecialUnitA"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.SpecialUnitA">[docs]</a><span class="k">class</span> <span class="nc">SpecialUnitA</span><span class="p">(</span><span class="n">Unit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Silniejsza i bardziej wytrzymala, walczy z kilkoma jednostkami.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fraction</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Position</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="n">fraction</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">board</span><span class="o">=</span><span class="n">board</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">change_health_points</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">SPECIAL_UNIT_HP</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">change_strength</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">SPECIAL_UNIT_STRENGTH</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SpecialUnitA.fight"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.SpecialUnitA.fight">[docs]</a>    <span class="k">def</span> <span class="nf">fight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Wywołuje metodę get_damage na każdym obiekcie</span>
+<span class="sd">        z listy obiektów znajdujących się na polu.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">defense_modifier</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">get_defense_modifier</span><span class="p">()</span>
+        <span class="n">enemies</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Unit</span><span class="p">]</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">get_units</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">:</span>
+            <span class="n">enemy</span><span class="o">.</span><span class="n">get_damage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_strength</span><span class="p">()</span> <span class="o">+</span> <span class="n">defense_modifier</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">get_hp</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">remove_unit</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
+                <span class="n">enemy</span><span class="o">.</span><span class="n">just_die</span><span class="p">()</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Poległem :(&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="SpecialUnitB"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.SpecialUnitB">[docs]</a><span class="k">class</span> <span class="nc">SpecialUnitB</span><span class="p">(</span><span class="n">Unit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Jednostka posiadająca więcej punktów ruchu.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fraction</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Position</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="n">fraction</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">board</span><span class="o">=</span><span class="n">board</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">change_movement_points</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">SPECIAL_UNIT_MOVEMENT_POINT</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SpecialUnitC"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.SpecialUnitC">[docs]</a><span class="k">class</span> <span class="nc">SpecialUnitC</span><span class="p">(</span><span class="n">Unit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Jednostka Przejmująca teren na dystans&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fraction</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Position</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="n">fraction</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">board</span><span class="o">=</span><span class="n">board</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SpecialUnitC.capture_the_field"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.SpecialUnitC.capture_the_field">[docs]</a>    <span class="k">def</span> <span class="nf">capture_the_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Zmienia przynależność pola do frakcji.</span>
+<span class="sd">        Dodaje siebie do listy jednostek znajdujących się na nowym polu.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">takeover_from_a_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Position</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Przejmuje kilka pól z dystansu.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">throw_direction</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># 0:góra   1:prawo   2:dół   3:lewo</span>
+            <span class="n">throw_distance</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">throw_direction</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">target_pos</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">throw_distance</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">throw_direction</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">target_pos</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">throw_distance</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">throw_direction</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">target_pos</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">throw_distance</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">throw_direction</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">target_pos</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">throw_distance</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">value2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                    <span class="n">target_pos2</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span>
+                        <span class="n">target_pos</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">value2</span><span class="p">,</span> <span class="n">target_pos</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">value</span>
+                    <span class="p">)</span>
+                    <span class="k">if</span> <span class="n">board</span><span class="o">.</span><span class="n">is_it_free</span><span class="p">(</span><span class="n">target_pos2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fraction</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">target_pos2</span><span class="o">.</span><span class="n">y</span><span class="p">][</span>
+                            <span class="n">target_pos2</span><span class="o">.</span><span class="n">x</span>
+                        <span class="p">]</span><span class="o">.</span><span class="n">change_fraction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_fraction</span><span class="p">())</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Przejmuje pole (</span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">change_fraction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_fraction</span><span class="p">())</span>
+        <span class="c1"># przekazuje wskaźnik na obecnie aktywny obiekt jednostki</span>
+        <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">takeover_from_a_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="SpecialUnitD"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.SpecialUnitD">[docs]</a><span class="k">class</span> <span class="nc">SpecialUnitD</span><span class="p">(</span><span class="n">Unit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Jednostka przejmująca kilka pól obok swojej pozycji&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">board</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="n">fraction</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">board</span><span class="o">=</span><span class="n">board</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SpecialUnitD.capture_the_field"><a class="viewcode-back" href="../../../source/battle.army.html#battle.army.unit.SpecialUnitD.capture_the_field">[docs]</a>    <span class="k">def</span> <span class="nf">capture_the_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">capture_more_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            przejmuje wszystkie pola z ktorymi sasiaduje i są wolne : np x=2, y=2 przejmuje:</span>
+<span class="sd">            (1,1)(2,1)(3,1)</span>
+<span class="sd">            (1,2)[2,2](3,2)</span>
+<span class="sd">            (1,3)(2,3)(3,3)</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">value2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                    <span class="n">target_pos</span> <span class="o">=</span> <span class="n">Position</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">value2</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">value</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">board</span><span class="o">.</span><span class="n">is_it_free</span><span class="p">(</span><span class="n">target_pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fraction</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">target_pos</span><span class="o">.</span><span class="n">x</span><span class="p">][</span><span class="n">target_pos</span><span class="o">.</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">change_fraction</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">get_fraction</span><span class="p">()</span>
+                        <span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Przejmuje pole (</span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">change_fraction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_fraction</span><span class="p">())</span>
+        <span class="c1"># przekazuje wskaźnik na obecnie aktywny obiekt jednostki</span>
+        <span class="n">board</span><span class="o">.</span><span class="n">board_fields</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">capture_more_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">The Battle of the Four Armies</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Jędrzej Stasik & Mikołaj Socha.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

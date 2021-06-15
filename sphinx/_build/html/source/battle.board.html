@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>battle.board package &mdash; The Battle of the Four Armies 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> The Battle of the Four Armies
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">battle.board package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-battle.board.board">battle.board.board module</a></li>
+<li><a class="reference internal" href="#module-battle.board.field">battle.board.field module</a></li>
+<li><a class="reference internal" href="#module-battle.board">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Battle of the Four Armies</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>battle.board package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/source/battle.board.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="battle-board-package">
+<h1>battle.board package<a class="headerlink" href="#battle-board-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-battle.board.board">
+<span id="battle-board-board-module"></span><h2>battle.board.board module<a class="headerlink" href="#module-battle.board.board" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="battle.board.board.Board">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">battle.board.board.</span></span><span class="sig-name descname"><span class="pre">Board</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board_x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">board_y</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/battle/board/board.html#Board"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.board.Board" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Klasa przechowująca planszę.</p>
+<p>Robi dwie rzeczy:
+1. Generuje nową planszę
+2. Zwraca stany pól</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.board.Board.captured_fields">
+<span class="sig-name descname"><span class="pre">captured_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="reference internal" href="../_modules/battle/board/board.html#Board.captured_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.board.Board.captured_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zwraca słownik z liczbą przejętych pól przez armie</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.board.Board.generate_board">
+<span class="sig-name descname"><span class="pre">generate_board</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/board/board.html#Board.generate_board"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.board.Board.generate_board" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tworzy dwuwymiarową tablicę obiektów Field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.board.Board.get_all_fields_data">
+<span class="sig-name descname"><span class="pre">get_all_fields_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">list</span><a class="reference internal" href="../_modules/battle/board/board.html#Board.get_all_fields_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.board.Board.get_all_fields_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zwraca aktualny stan planszy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list[list[Field]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.board.Board.get_board_size">
+<span class="sig-name descname"><span class="pre">get_board_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a><a class="reference internal" href="../_modules/battle/board/board.html#Board.get_board_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.board.Board.get_board_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zwraca wymiary planszy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Position</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.board.Board.get_fields">
+<span class="sig-name descname"><span class="pre">get_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#battle.board.field.Field" title="battle.board.field.Field"><span class="pre">battle.board.field.Field</span></a><a class="reference internal" href="../_modules/battle/board/board.html#Board.get_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.board.Board.get_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator pól należących do planszy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yield</dt>
+<dd class="field-odd"><p>Field</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.board.Board.is_it_free">
+<span class="sig-name descname"><span class="pre">is_it_free</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="reference internal" href="../_modules/battle/board/board.html#Board.is_it_free"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.board.Board.is_it_free" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sprawdza stan pola.</p>
+<p>Zwraca:
+0 - jeśli pole nie istnieje,
+1 - żadna jednostka nie stała na tym polu albo jest sojusznicze,
+1 - na polu nie ma żadnej jednostki, ale należy do przeciwnika,
+2 - na polu znajduje się wroga jednostka</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pos</strong> – pozycja pola na planszy</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-battle.board.field">
+<span id="battle-board-field-module"></span><h2>battle.board.field module<a class="headerlink" href="#module-battle.board.field" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="battle.board.field.Field">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">battle.board.field.</span></span><span class="sig-name descname"><span class="pre">Field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/battle/board/field.html#Field"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.field.Field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Klasa pola plaszy.</p>
+<p>Przechowuje chrakterystykę oraz stan pola.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.field.Field.add_unit">
+<span class="sig-name descname"><span class="pre">add_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/board/field.html#Field.add_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.field.Field.add_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dodaje jednostkę do listy jednostek na polu</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>unit</strong> – obiekt jednostki</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.field.Field.change_fraction">
+<span class="sig-name descname"><span class="pre">change_fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/board/field.html#Field.change_fraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.field.Field.change_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zmienia przynależność pola do frakcji</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fraction</strong> – nazwa frakcji</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.field.Field.count_units">
+<span class="sig-name descname"><span class="pre">count_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="reference internal" href="../_modules/battle/board/field.html#Field.count_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.field.Field.count_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Liczy jednostki znajdujące się na polu</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.field.Field.get_defense_modifier">
+<span class="sig-name descname"><span class="pre">get_defense_modifier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="reference internal" href="../_modules/battle/board/field.html#Field.get_defense_modifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.field.Field.get_defense_modifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zwraca modyfikator obronności pola.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.field.Field.get_fraction">
+<span class="sig-name descname"><span class="pre">get_fraction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="../_modules/battle/board/field.html#Field.get_fraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.field.Field.get_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zwraca przynależność pola do frakcji.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.field.Field.get_units">
+<span class="sig-name descname"><span class="pre">get_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">list</span><a class="reference internal" href="../_modules/battle/board/field.html#Field.get_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.field.Field.get_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zwraca listę jednostek znajdujących się na polu</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list[Unit]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.field.Field.is_occupied">
+<span class="sig-name descname"><span class="pre">is_occupied</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">bool</span><a class="reference internal" href="../_modules/battle/board/field.html#Field.is_occupied"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.field.Field.is_occupied" title="Permalink to this definition">¶</a></dt>
+<dd><p>Informuje czy pole jest okupowane przez dowolną armię.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.board.field.Field.remove_unit">
+<span class="sig-name descname"><span class="pre">remove_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/board/field.html#Field.remove_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.board.field.Field.remove_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Usuwa jednostkę z listy jednostek na polu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>unit</strong> – obiekt jednostki</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-battle.board">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-battle.board" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Jędrzej Stasik &amp; Mikołaj Socha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

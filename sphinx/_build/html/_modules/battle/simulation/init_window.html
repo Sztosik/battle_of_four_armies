@@ -1,0 +1,417 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>battle.simulation.init_window &mdash; The Battle of the Four Armies 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> The Battle of the Four Armies
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">The Battle of the Four Armies</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>battle.simulation.init_window</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for battle.simulation.init_window</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">Button</span><span class="p">,</span> <span class="n">Entry</span><span class="p">,</span> <span class="n">Label</span><span class="p">,</span> <span class="n">StringVar</span><span class="p">,</span> <span class="n">Tk</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">messagebox</span>
+
+<span class="kn">from</span> <span class="nn">battle.simulation.simulation</span> <span class="kn">import</span> <span class="n">Simulation</span>
+<span class="kn">from</span> <span class="nn">battle.visualization.visualization</span> <span class="kn">import</span> <span class="n">main_visualization</span>
+
+
+<div class="viewcode-block" id="popup"><a class="viewcode-back" href="../../../source/battle.simulation.html#battle.simulation.init_window.popup">[docs]</a><span class="k">def</span> <span class="nf">popup</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wyświelta okienko z komunikatem o błędzie.</span>
+
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Input Error&quot;</span><span class="p">,</span> <span class="s2">&quot;Use only int numbers and fill all fields&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="run_battle"><a class="viewcode-back" href="../../../source/battle.simulation.html#battle.simulation.init_window.run_battle">[docs]</a><span class="k">def</span> <span class="nf">run_battle</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Uruchamia symulację oraz wizualizację na osobnych wątkach.</span>
+<span class="sd">    </span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">simulation</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">()</span>
+    <span class="n">board_state</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
+
+    <span class="n">simulation_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
+        <span class="n">target</span><span class="o">=</span><span class="n">simulation</span><span class="o">.</span><span class="n">sim_thread</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">board_state</span><span class="p">,)</span>
+    <span class="p">)</span>
+    <span class="n">visualization_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
+        <span class="n">target</span><span class="o">=</span><span class="n">main_visualization</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">board_state</span><span class="p">,)</span>
+    <span class="p">)</span>
+
+    <span class="n">simulation_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">visualization_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="n">board_state</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="n">simulation_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="n">visualization_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="run_default"><a class="viewcode-back" href="../../../source/battle.simulation.html#battle.simulation.init_window.run_default">[docs]</a><span class="k">def</span> <span class="nf">run_default</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ustala domyślne ustawienia symulacji.</span>
+<span class="sd">    </span>
+<span class="sd">    Ustawienia są zapisywane do pliku init_data.json</span>
+
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;yellow_base_units&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="s2">&quot;yellow_special_units&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;red_base_units&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="s2">&quot;red_special_units&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;blue_base_units&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="s2">&quot;blue_special_units&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;green_base_units&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="s2">&quot;green_special_units&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;board_x&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="s2">&quot;board_y&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="s2">&quot;delay&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+        <span class="s2">&quot;percentage&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;init_data.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+    <span class="n">run_battle</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="callback"><a class="viewcode-back" href="../../../source/battle.simulation.html#battle.simulation.init_window.callback">[docs]</a><span class="k">def</span> <span class="nf">callback</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Zapisuje ustawienia wprowadzone przez użytkownika.</span>
+<span class="sd">    </span>
+<span class="sd">    Ustawienia są zapisywane do pliku init_data.json</span>
+<span class="sd">    </span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;yellow_base_units&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">yellow_base_units</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+            <span class="s2">&quot;yellow_special_units&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">yellow_special_units</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+            <span class="s2">&quot;red_base_units&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">red_base_units</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+            <span class="s2">&quot;red_special_units&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">red_special_units</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+            <span class="s2">&quot;blue_base_units&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">blue_base_units</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+            <span class="s2">&quot;blue_special_units&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">blue_special_units</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+            <span class="s2">&quot;green_base_units&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">green_base_units</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+            <span class="s2">&quot;green_special_units&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">green_special_units</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+            <span class="s2">&quot;board_x&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">board_width</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+            <span class="s2">&quot;board_y&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">board_height</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+            <span class="s2">&quot;delay&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">frames_delay</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+            <span class="s2">&quot;percentage&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">percentage</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+        <span class="p">}</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;init_data.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="n">run_battle</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">popup</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
+
+    <span class="n">yellow_base_units</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">yellow_special_units</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">red_base_units</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">red_special_units</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">blue_base_units</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">blue_special_units</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">green_base_units</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">green_special_units</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">board_width</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">board_height</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">frames_delay</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">percentage</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+
+    <span class="c1"># Board size X</span>
+    <span class="n">part_label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Board Size X:&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">part_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">part_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">board_width</span><span class="p">)</span>
+    <span class="n">part_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Board size Y</span>
+    <span class="n">part_label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Board Size Y:&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">part_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">part_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">board_height</span><span class="p">)</span>
+    <span class="n">part_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># Army Yellow base units</span>
+    <span class="n">part_label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Yellow army base units: &quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span>
+    <span class="p">)</span>
+    <span class="n">part_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">part_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">yellow_base_units</span><span class="p">)</span>
+    <span class="n">part_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Army Yellow special units</span>
+    <span class="n">part_label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Yellow army special units: &quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span>
+    <span class="p">)</span>
+    <span class="n">part_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">part_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">yellow_special_units</span><span class="p">)</span>
+    <span class="n">part_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># Army Red base units</span>
+    <span class="n">part_label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Red army base units: &quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span>
+    <span class="p">)</span>
+    <span class="n">part_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">part_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">red_base_units</span><span class="p">)</span>
+    <span class="n">part_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Army Red special units</span>
+    <span class="n">part_label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Red army special units: &quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span>
+    <span class="p">)</span>
+    <span class="n">part_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">part_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">red_special_units</span><span class="p">)</span>
+    <span class="n">part_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># Army Blue base units</span>
+    <span class="n">part_label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Blue army base units: &quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span>
+    <span class="p">)</span>
+    <span class="n">part_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">part_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">blue_base_units</span><span class="p">)</span>
+    <span class="n">part_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Army Blue special units</span>
+    <span class="n">part_label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Blue army special units: &quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span>
+    <span class="p">)</span>
+    <span class="n">part_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">part_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">blue_special_units</span><span class="p">)</span>
+    <span class="n">part_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># Army Green base units</span>
+    <span class="n">part_label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Green army base units: &quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span>
+    <span class="p">)</span>
+    <span class="n">part_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">part_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">green_base_units</span><span class="p">)</span>
+    <span class="n">part_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Army Green special units</span>
+    <span class="n">part_label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Green army special units: &quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span>
+    <span class="p">)</span>
+    <span class="n">part_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">part_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">green_special_units</span><span class="p">)</span>
+    <span class="n">part_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># Framerate</span>
+    <span class="n">part_label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Delay between frames (ms): &quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span>
+    <span class="p">)</span>
+    <span class="n">part_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">part_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">frames_delay</span><span class="p">)</span>
+    <span class="n">part_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Percentage</span>
+    <span class="n">part_label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;How many fields to stop (%): &quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">20</span>
+    <span class="p">)</span>
+    <span class="n">part_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">part_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">percentage</span><span class="p">)</span>
+    <span class="n">part_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="n">MyButton1</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Submit and run&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">callback</span><span class="p">)</span>
+    <span class="n">MyButton1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">MyButton2</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Run default&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">run_default</span><span class="p">)</span>
+    <span class="n">MyButton2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Initialization&quot;</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;900x420&quot;</span><span class="p">)</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Jędrzej Stasik &amp; Mikołaj Socha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

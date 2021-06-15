@@ -1,0 +1,387 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>battle.army package &mdash; The Battle of the Four Armies 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> The Battle of the Four Armies
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">battle.army package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-battle.army.army">battle.army.army module</a></li>
+<li><a class="reference internal" href="#module-battle.army.unit">battle.army.unit module</a></li>
+<li><a class="reference internal" href="#module-battle.army">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Battle of the Four Armies</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>battle.army package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/source/battle.army.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="battle-army-package">
+<h1>battle.army package<a class="headerlink" href="#battle-army-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-battle.army.army">
+<span id="battle-army-army-module"></span><h2>battle.army.army module<a class="headerlink" href="#module-battle.army.army" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="battle.army.army.Army">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">battle.army.army.</span></span><span class="sig-name descname"><span class="pre">Army</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_number_of_base_units</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_number_of_special_units</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_point</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/battle/army/army.html#Army"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.army.Army" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Przechowuje jednostki i zbiera ich statystyki.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.army.Army.count_units">
+<span class="sig-name descname"><span class="pre">count_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="reference internal" href="../_modules/battle/army/army.html#Army.count_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.army.Army.count_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Liczy żywe jednostki.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.army.Army.generate_unit_list">
+<span class="sig-name descname"><span class="pre">generate_unit_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/army.html#Army.generate_unit_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.army.Army.generate_unit_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tworzy obiekty jednostek należących do armii i dodaje je do listy</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.army.Army.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/army.html#Army.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.army.Army.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rozpoczyna tury kolejnych jednostek danej armii</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-battle.army.unit">
+<span id="battle-army-unit-module"></span><h2>battle.army.unit module<a class="headerlink" href="#module-battle.army.unit" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="battle.army.unit.BaseUnit">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">battle.army.unit.</span></span><span class="sig-name descname"><span class="pre">BaseUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/battle/army/unit.html#BaseUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.BaseUnit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#battle.army.unit.Unit" title="battle.army.unit.Unit"><code class="xref py py-class docutils literal notranslate"><span class="pre">battle.army.unit.Unit</span></code></a></p>
+<p>Podstawowa jednstka. Identyczna dla wszystkich armii.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="battle.army.unit.SpecialUnitA">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">battle.army.unit.</span></span><span class="sig-name descname"><span class="pre">SpecialUnitA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/battle/army/unit.html#SpecialUnitA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.SpecialUnitA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#battle.army.unit.Unit" title="battle.army.unit.Unit"><code class="xref py py-class docutils literal notranslate"><span class="pre">battle.army.unit.Unit</span></code></a></p>
+<p>Silniejsza i bardziej wytrzymala, walczy z kilkoma jednostkami.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.SpecialUnitA.fight">
+<span class="sig-name descname"><span class="pre">fight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/unit.html#SpecialUnitA.fight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.SpecialUnitA.fight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wywołuje metodę get_damage na każdym obiekcie
+z listy obiektów znajdujących się na polu.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="battle.army.unit.SpecialUnitB">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">battle.army.unit.</span></span><span class="sig-name descname"><span class="pre">SpecialUnitB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/battle/army/unit.html#SpecialUnitB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.SpecialUnitB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#battle.army.unit.Unit" title="battle.army.unit.Unit"><code class="xref py py-class docutils literal notranslate"><span class="pre">battle.army.unit.Unit</span></code></a></p>
+<p>Jednostka posiadająca więcej punktów ruchu.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="battle.army.unit.SpecialUnitC">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">battle.army.unit.</span></span><span class="sig-name descname"><span class="pre">SpecialUnitC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/battle/army/unit.html#SpecialUnitC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.SpecialUnitC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#battle.army.unit.Unit" title="battle.army.unit.Unit"><code class="xref py py-class docutils literal notranslate"><span class="pre">battle.army.unit.Unit</span></code></a></p>
+<p>Jednostka Przejmująca teren na dystans</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.SpecialUnitC.capture_the_field">
+<span class="sig-name descname"><span class="pre">capture_the_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/unit.html#SpecialUnitC.capture_the_field"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.SpecialUnitC.capture_the_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zmienia przynależność pola do frakcji.
+Dodaje siebie do listy jednostek znajdujących się na nowym polu.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="battle.army.unit.SpecialUnitD">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">battle.army.unit.</span></span><span class="sig-name descname"><span class="pre">SpecialUnitD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">board</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/battle/army/unit.html#SpecialUnitD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.SpecialUnitD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#battle.army.unit.Unit" title="battle.army.unit.Unit"><code class="xref py py-class docutils literal notranslate"><span class="pre">battle.army.unit.Unit</span></code></a></p>
+<p>Jednostka przejmująca kilka pól obok swojej pozycji</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.SpecialUnitD.capture_the_field">
+<span class="sig-name descname"><span class="pre">capture_the_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/unit.html#SpecialUnitD.capture_the_field"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.SpecialUnitD.capture_the_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zmienia przynależność pola do frakcji.
+Dodaje siebie do listy jednostek znajdujących się na nowym polu</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="battle.army.unit.Unit">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">battle.army.unit.</span></span><span class="sig-name descname"><span class="pre">Unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">health_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Abstrakcyjna klasa jednostki</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.Unit.capture_the_field">
+<span class="sig-name descname"><span class="pre">capture_the_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit.capture_the_field"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit.capture_the_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zmienia przynależność pola do frakcji.
+Dodaje siebie do listy jednostek znajdujących się na nowym polu</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.Unit.change_health_points">
+<span class="sig-name descname"><span class="pre">change_health_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit.change_health_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit.change_health_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zmienia ilosc punktów życia jednostki</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.Unit.change_movement_points">
+<span class="sig-name descname"><span class="pre">change_movement_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit.change_movement_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit.change_movement_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zmienia ilość punktów ruchu jednostki</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.Unit.change_strength">
+<span class="sig-name descname"><span class="pre">change_strength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit.change_strength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit.change_strength" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zmienia siłę jednostki</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.Unit.fight">
+<span class="sig-name descname"><span class="pre">fight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.simulation.html#battle.simulation.sim_context.Position" title="battle.simulation.sim_context.Position"><span class="pre">battle.simulation.sim_context.Position</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit.fight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit.fight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wywołuje metodę get_damage na pierwszym obiekcie
+z listy obiektów znajdujących się na polu.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.Unit.get_damage">
+<span class="sig-name descname"><span class="pre">get_damage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">damage</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit.get_damage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit.get_damage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zmienia stan punktów życia</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.Unit.get_fraction">
+<span class="sig-name descname"><span class="pre">get_fraction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit.get_fraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit.get_fraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zwraca frakcje jednostki</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.Unit.get_hp">
+<span class="sig-name descname"><span class="pre">get_hp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit.get_hp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit.get_hp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zwraca punkty życia jednostki</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.Unit.get_strength">
+<span class="sig-name descname"><span class="pre">get_strength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit.get_strength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit.get_strength" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zwraca punkty siły obiektu</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.Unit.is_alive">
+<span class="sig-name descname"><span class="pre">is_alive</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">bool</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit.is_alive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit.is_alive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zwraca punkty życia jednostki</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.Unit.just_die">
+<span class="sig-name descname"><span class="pre">just_die</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit.just_die"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit.just_die" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zmienia stan jednostki na martwy</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="battle.army.unit.Unit.move">
+<span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="battle.board.html#battle.board.board.Board" title="battle.board.board.Board"><span class="pre">battle.board.board.Board</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../_modules/battle/army/unit.html#Unit.move"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#battle.army.unit.Unit.move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sprawdza czy jednostka jest jeczsze żywa i czy ma punkty ruchu.
+Lusuje pole i sprawdza jego status i podejmuje decyzje o dalszych działaniach</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-battle.army">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-battle.army" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Jędrzej Stasik &amp; Mikołaj Socha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

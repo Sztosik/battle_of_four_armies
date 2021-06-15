@@ -8,12 +8,21 @@ from battle.simulation.simulation import Simulation
 from battle.visualization.visualization import main_visualization
 
 
-def popup():
+def popup() -> None:
+    """
+    Wyświelta okienko z komunikatem o błędzie.
+
+    :return: None
+    """
     messagebox.showinfo("Input Error", "Use only int numbers and fill all fields")
 
 
-def run_battle():
-    """Uruchamia symulację oraz wizualizację"""
+def run_battle() -> None:
+    """
+    Uruchamia symulację oraz wizualizację na osobnych wątkach.
+    
+    :return: None
+    """
     simulation = Simulation()
     board_state = Queue()
 
@@ -34,8 +43,14 @@ def run_battle():
     sys.exit()
 
 
-def run_default():
-    """Domyślne ustawienia symulacji"""
+def run_default() -> None:
+    """
+    Ustala domyślne ustawienia symulacji.
+    
+    Ustawienia są zapisywane do pliku init_data.json
+
+    :return: None
+    """
     data = {
         "yellow_base_units": 20,
         "yellow_special_units": 5,
@@ -56,8 +71,14 @@ def run_default():
     run_battle()
 
 
-def callback():
-    """Ustawienia wprowadzone przez użytkownika"""
+def callback() -> None:
+    """
+    Zapisuje ustawienia wprowadzone przez użytkownika.
+    
+    Ustawienia są zapisywane do pliku init_data.json
+    
+    :return: None
+    """
     try:
         data = {
             "yellow_base_units": int(yellow_base_units.get()),

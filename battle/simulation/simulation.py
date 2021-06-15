@@ -16,7 +16,9 @@ logger = logging.getLogger(__name__)
 
 
 class Simulation:
-    """Główna klasa inicjująca i startująca symulacje."""
+    """
+    Klasa odpowiedzialna za logikę symulacji.
+    """
 
     def __init__(self, json_path="init_data.json"):
         with open(json_path, "r") as f:
@@ -67,14 +69,23 @@ class Simulation:
             )
             self.__armies.append(new_army)
 
-    def send_data(self, units_stats):
-        """Przekazuje dane do ststystyk."""
+    def send_data(self, units_stats: dict):
+        """
+        Przekazuje dane do ststystyk.
+        
+        :param units_stats: statystyki jednostek z aktualnej iteracji
+        :return: None
+        """
 
         iteration_stats = self.board.captured_fields()
         self.stats.add_row(iteration_stats, units_stats)
 
     def sim_end(self) -> bool:
-        """ "Sprawdza czy został spełniony warunek końca symulacji."""
+        """
+        Sprawdza czy został spełniony warunek końca symulacji.
+        
+        :return: bool
+        """
 
         iteration_stats = self.board.captured_fields()
         maximum = max(iteration_stats.values())
@@ -88,8 +99,12 @@ class Simulation:
             return True
         return False
 
-    def sim_thread(self, board_state: Queue):
-        """Rozpoczyna symulacje."""
+    def sim_thread(self, board_state: Queue) -> None:
+        """Rozpoczyna symulacje.
+
+            :param board_state: kolejka stanów planszy
+            :return: None
+        """
 
         iteration = 0
         while True:

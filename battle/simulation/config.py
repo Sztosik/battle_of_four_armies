@@ -1,6 +1,8 @@
-import logging
+"""
+Przechowuje stałe
+"""
 
-from battle.simulation.sim_context import Position
+import logging
 
 SINGLE_FRAME_DURATION = 50
 
@@ -14,8 +16,3 @@ BOARD_X = 20
 BOARD_Y = 20
 FRACTION_NAMES = ["Red", "Green", "Blue", "Yellow"]
 LOGGING_LEVEL = logging.CRITICAL
-
-POS_RED = Position(20, 20)
-POS_GREEN = Position(20, 30)
-POS_BLUE = Position(30, 20)
-POS_YELLOW = Position(30, 30)
