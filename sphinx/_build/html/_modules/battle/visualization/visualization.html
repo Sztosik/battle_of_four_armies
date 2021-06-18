@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>battle.visualization.visualization &#8212; The Battle of the Four Armies 1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for battle.visualization.visualization</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">import</span> <span class="nn">battle.simulation.config</span> <span class="k">as</span> <span class="nn">config</span>
+<span class="kn">import</span> <span class="nn">battle.visualization.consts</span> <span class="k">as</span> <span class="nn">consts</span>
+<span class="kn">from</span> <span class="nn">battle.board.board</span> <span class="kn">import</span> <span class="n">Board</span>
+<span class="kn">from</span> <span class="nn">battle.simulation.sim_context</span> <span class="kn">import</span> <span class="n">BoardData</span>
+
+
+<div class="viewcode-block" id="get_board_data"><a class="viewcode-back" href="../../../source/battle.visualization.html#battle.visualization.visualization.get_board_data">[docs]</a><span class="k">def</span> <span class="nf">get_board_data</span><span class="p">(</span><span class="n">board</span><span class="p">:</span> <span class="n">Board</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">BoardData</span><span class="p">]:</span>
+    <span class="n">board_data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BoardData</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">board</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+
+        <span class="n">field_state</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">is_occupied</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">field</span><span class="o">.</span><span class="n">get_fraction</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+            <span class="n">fieald_data</span> <span class="o">=</span> <span class="n">BoardData</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">field</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">field</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+                <span class="n">fraction</span><span class="o">=</span><span class="n">field</span><span class="o">.</span><span class="n">get_fraction</span><span class="p">(),</span>
+                <span class="n">isOccupied</span><span class="o">=</span><span class="n">field_state</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">board_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fieald_data</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">board_data</span></div>
+
+
+<div class="viewcode-block" id="main_visualization"><a class="viewcode-back" href="../../../source/battle.visualization.html#battle.visualization.visualization.main_visualization">[docs]</a><span class="k">def</span> <span class="nf">main_visualization</span><span class="p">(</span><span class="n">board_queue</span><span class="p">:</span> <span class="n">Queue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+    <span class="c1"># czeka na pierwszy element kolejki</span>
+    <span class="n">board</span><span class="p">:</span> <span class="n">Board</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">board_queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+            <span class="n">board</span> <span class="o">=</span> <span class="n">board_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="k">break</span>
+
+    <span class="n">board_size</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="n">get_board_size</span><span class="p">()</span>
+    <span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">board_size</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">consts</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">,</span> <span class="n">board_size</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">consts</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&quot;Visualization&quot;</span><span class="p">)</span>
+    <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">consts</span><span class="o">.</span><span class="n">WHITE</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">board</span> <span class="o">=</span> <span class="n">board_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">board</span><span class="o">.</span><span class="n">end</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">board_data</span> <span class="o">=</span> <span class="n">get_board_data</span><span class="p">(</span><span class="n">board</span><span class="p">)</span>
+
+        <span class="n">draw_grid</span><span class="p">(</span><span class="n">board_data</span><span class="p">,</span> <span class="n">screen</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+        <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">SINGLE_FRAME_DURATION</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Symulacja zakończona&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+        <span class="n">pygame</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_grid"><a class="viewcode-back" href="../../../source/battle.visualization.html#battle.visualization.visualization.draw_grid">[docs]</a><span class="k">def</span> <span class="nf">draw_grid</span><span class="p">(</span><span class="n">itr_fields_data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BoardData</span><span class="p">],</span> <span class="n">screen</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+    <span class="k">for</span> <span class="n">field_data</span> <span class="ow">in</span> <span class="n">itr_fields_data</span><span class="p">:</span>
+        <span class="n">rectangle</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+            <span class="n">field_data</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">consts</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">,</span>
+            <span class="n">field_data</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">consts</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">,</span>
+            <span class="n">consts</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">,</span>
+            <span class="n">consts</span><span class="o">.</span><span class="n">BLOCK_SIZE</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">field_data</span><span class="o">.</span><span class="n">fraction</span> <span class="o">==</span> <span class="s2">&quot;Yellow&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">field_data</span><span class="o">.</span><span class="n">isOccupied</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">consts</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">consts</span><span class="o">.</span><span class="n">YELLOW_ACCENT</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">field_data</span><span class="o">.</span><span class="n">fraction</span> <span class="o">==</span> <span class="s2">&quot;Red&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">field_data</span><span class="o">.</span><span class="n">isOccupied</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">consts</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">consts</span><span class="o">.</span><span class="n">RED_ACCENT</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">field_data</span><span class="o">.</span><span class="n">fraction</span> <span class="o">==</span> <span class="s2">&quot;Green&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">field_data</span><span class="o">.</span><span class="n">isOccupied</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">consts</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">consts</span><span class="o">.</span><span class="n">GREEN_ACCENT</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">field_data</span><span class="o">.</span><span class="n">fraction</span> <span class="o">==</span> <span class="s2">&quot;Blue&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">field_data</span><span class="o">.</span><span class="n">isOccupied</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">consts</span><span class="o">.</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">consts</span><span class="o">.</span><span class="n">BLUE_ACCENT</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">consts</span><span class="o">.</span><span class="n">WHITE</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">The Battle of the Four Armies</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Jędrzej Stasik & Mikołaj Socha.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

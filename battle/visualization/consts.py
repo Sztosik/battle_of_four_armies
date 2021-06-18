@@ -1,0 +1,21 @@
+WIDTH = 1000  # jednak nie dotykac
+BLOCK_SIZE = 10  # jednak nie dotykac
+
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+
+BLUE = (0, 0, 205)
+BLUE_ACCENT = (135, 206, 250)
+BLUE_FIGHT = (70, 130, 180)
+
+RED = (139, 0, 0)
+RED_ACCENT = (240, 128, 128)
+RED_FIGHT = (178, 34, 34)
+
+GREEN = (0, 100, 0)
+GREEN_ACCENT = (152, 251, 152)
+GREEN_FIGHT = (107, 142, 35)
+
+YELLOW = (230, 184, 0)
+YELLOW_ACCENT = (255, 255, 77)
+YELLOW_FIGHT = (204, 204, 0)
