@@ -32,6 +32,9 @@ class Army:
     def generate_unit_list(self, board: Board) -> None:
         """
         Tworzy obiekty jednostek należących do armii i dodaje je do listy
+
+        :param units_stats: lista jednostek
+        :return: None
         """
         for _ in range(self.__init_number_of_base_units):
             new_unit: BaseUnit = BaseUnit(
@@ -70,12 +73,18 @@ class Army:
     def start(self, board: Board) -> None:
         """
         Rozpoczyna tury kolejnych jednostek danej armii
+
+        :return: None
         """
         for unit in self.__unit_list:
             unit.move(board)
 
     def count_units(self) -> int:
-        """Liczy żywe jednostki."""
+        """
+        Liczy żywe jednostki.
+
+        :return: int
+        """
         counter = 0
         for unit in self.__unit_list:
             if unit.is_alive():
